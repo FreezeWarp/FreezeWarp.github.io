@@ -57,12 +57,16 @@ window.onpopstate = function(e) {
 /* Use loadPage when a link is clicked. */
 /* I've also never used any of these (always used jQuery). It actually works rather well, doesn't it? */
 document.addEventListener('click', function(e) {
+    var target = e.target;
 
-    if (e.target.tagName !== 'A' || e.target.getAttribute('href').match(/(\/\/|mailto|\#)/)) // Match is super lazy, but works for us.
-        return;
+    while(target.nodeName !== "A" && target !== null) {
+        target = target.parentNode;
+    }
 
-    e.preventDefault();
-    loadPage(e.target.getAttribute('href'));
+    if(target) {
+        e.preventDefault();
+        loadPage(target.getAttribute('href'))
+    }
 }, false); // Only works in newerish browsers. Old IE uses attachEvent instead.
 
 
