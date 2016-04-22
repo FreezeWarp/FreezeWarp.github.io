@@ -22,11 +22,36 @@ h1 {
     text-align: center;
 }
 
+pre {
+    font-size: .8em;
+    font-family: "Ubuntu Mono", Monaco, "Lucida Console", monospace;
+    border-radius: .5em;
+    padding: 20px;
+    white-space: pre-wrap;
+}
+
+.clear {
+    clear: both;
+    display: block;
+}
+
+.cols3 {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+}
+
+.highlights, .download {
+    border-radius: .25em;
+    padding: 0px 15px;
+}
 .highlights {
     float: left;
     margin-right: 30px;
-    border-radius: .25em;
-    padding: 0px 15px;
+}
+.download {
+    margin-left: 30px;
+    float: right;
 }
 .gallery img {
     margin: 20px;

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+    <title>Title</title>
+</head>
+<body>
+<main id="main">
+    <aside class="highlights">
+        <h3>Highlights</h3>
+        <ul>
+            <li>C Programming</li>
+            <li>Unicode Interface (with Windows Console hacks)</li>
+            <li>Timing Events</li>
+            <li>State Preservation</li>
+        </ul>
+    </aside>
+
+    This is a fairly simple, albeit still substantial, C programme that simulates basic blackjack in the console, but does so with a bang: timing events are used to make the game feel more natural (one hand will appear, a delay of a few seconds, and the next hand will appear), and unicode is used to the greatest extent possible to try and make the game seem slightly more believable. You can play multiple hands, your earnings will persist overtime if you use the -r flag, and if you feel like training a bit, you can use -c to count cards. <strong>Notably, this game uses one or more fixed decks</strong>: when a card is dealt, it is removed from the deck, and when a deck runs out of cards, the whole deck is reshuffled. This means that you could easily use this program as a card-counting trainer, as it simulates a real deck (or decks!) as completely.
+
+    <aside class="download">
+        <h3>Download</h3>
+        <ul>
+            <li><a href="https://github.com/FreezeWarp/c-examples/tree/master/blackjack">SourceCode (GitHub)</a></li>
+            <li><a href="/downloads/blackjack.exe">Windows Compiled .exe</a></li>
+        </ul>
+    </aside>
+
+
+    <div class="clear"></div>
+
+    <h2>Command Flags</h2>
+    <ul>
+        <li> -u forces unicode on a Windows system (requires non-raster fonts set in console)</li>
+        <li> -r will keep track of money across game sessions by writing to Assignment10Money.tmp.</li>
+        <li> -c will show card counts on every action. (Kind-of cheaty, needless to say.)</li>
+        <li> --money=x overrides the default amount of money.</li>
+        <li> --hands=x overrides the default number of simulated hands.</li>
+        <li> --sleep=x applies a multiplier to the sleep commands, effectively speeding up (<1) or slowing down (>1) the "animations." Use 0 to disable animations entirely.</li>
+    </ul>
+
+    <h2>Sample Run</h2>
+    <pre class="cols3">
+        Administrator@WIN-xyz C:\Users\Administrator\Documents\blackjack
+$ blackjack.exe
+You currently have 100000. How much would you like to bet this round (0 to quit)? 1000
+
+
+======Dealer's Hand======
+ ___  ___
+|###||6 ♠|
+ ‾‾‾  ‾‾‾
+
+
+
+========Hand 1:=======
+ ___  ___
+|3 ♠||3 ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 6
+
+
+========Hand 2:=======
+ ___  ___
+|5 ♥||Q ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 15
+
+
+========Hand 3:=======
+ ___  ___
+|6 ♥||3 ♣|
+ ‾‾‾  ‾‾‾
+Total Value: 9
+
+
+========Hand 4:=======
+ ___  ___
+|A ♥||K ♦|
+ ‾‾‾  ‾‾‾
+Total Value: 21
+
+
+========Hand 5:=======
+ ___  ___
+|4 ♦||7 ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 11
+
+
+========Hand 1:=======
+ ___  ___
+|3 ♠||3 ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 6
+
+
+Choose an action:
+H - Hit
+S - Stay
+D - Double
+U - Surrender
+P - Split
+h
+
+========Hand 1:=======
+ ___  ___  ___
+|3 ♠||3 ♥||A ♣|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 17
+
+
+Choose an action:
+H - Hit
+S - Stay
+D - Double
+s
+
+========Hand 2:=======
+ ___  ___
+|5 ♥||Q ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 15
+
+
+Choose an action:
+H - Hit
+S - Stay
+D - Double
+U - Surrender
+s
+
+========Hand 3:=======
+ ___  ___
+|6 ♥||3 ♣|
+ ‾‾‾  ‾‾‾
+Total Value: 9
+
+
+Choose an action:
+H - Hit
+S - Stay
+D - Double
+U - Surrender
+h
+
+========Hand 3:=======
+ ___  ___  ___
+|6 ♥||3 ♣||A ♦|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 20
+
+
+Choose an action:
+H - Hit
+S - Stay
+D - Double
+s
+
+========Hand 4:=======
+ ___  ___
+|A ♥||K ♦|
+ ‾‾‾  ‾‾‾
+Total Value: 21
+
+
+========Hand 5:=======
+ ___  ___
+|4 ♦||7 ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 11
+
+
+Choose an action:
+H - Hit
+S - Stay
+D - Double
+U - Surrender
+d
+
+========Hand 5:=======
+ ___  ___  ___
+|4 ♦||7 ♥||K ♠|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 21
+
+
+======Dealer's Hand======
+ ___  ___
+|3 ♦||6 ♠|
+ ‾‾‾  ‾‾‾
+Total Value: 9
+
+
+Dealer hits.
+
+======Dealer's Hand======
+ ___  ___  ___
+|3 ♦||6 ♠||J ♥|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 19
+
+
+========Hand 1:=======
+ ___  ___  ___
+|3 ♠||3 ♥||A ♣|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 17
+
+
+Hand 1 is a loser.
+1000 was lost.
+
+========Hand 2:=======
+ ___  ___
+|5 ♥||Q ♥|
+ ‾‾‾  ‾‾‾
+Total Value: 15
+
+
+Hand 2 is a loser.
+1000 was lost.
+
+========Hand 3:=======
+ ___  ___  ___
+|6 ♥||3 ♣||A ♦|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 20
+
+
+Hand 3 is a winner!
+1000 was won.
+
+========Hand 4:=======
+ ___  ___
+|A ♥||K ♦|
+ ‾‾‾  ‾‾‾
+Total Value: 21
+
+
+Hand 4 is a winner!
+1500 was won.
+
+========Hand 5:=======
+ ___  ___  ___
+|4 ♦||7 ♥||K ♠|
+ ‾‾‾  ‾‾‾  ‾‾‾
+Total Value: 21
+
+
+Hand 5 is a winner!
+2000 was won.
+
+You currently have 102500. How much would you like to bet this round (0 to quit)? 0
+    </pre>
+</main>
+</body>
+</html>
