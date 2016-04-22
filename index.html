@@ -120,6 +120,8 @@
     </style>
 
     <script type="text/javascript">
+        var cachedPages = {};
+
         /* Prototype extensions.
          * Fun-fact! This is the first time I've done a prototype extension. It's shockingly simple, isn't it? */
         Number.prototype.zeroPad = function(num) {
@@ -132,8 +134,17 @@
             return asString;
         };
 
+        String.prototype.titleFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
+        String.prototype.mainFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
+
         /* Stuff to run when the page loads (currently just the clock nonsense.) */
         window.onload = function() {
+            cachedPages[window.location.pathname] = {
+                'content' : document.body.innerHTML.mainFromHTML(),
+                'pageTitle' : document.head.innerHTML.titleFromHTML()
+            }
+
+
             var timeElement = document.createElement('li');
             timeElement.setAttribute('id', 'dateContainer');
             document.getElementById('primary_nav_bar').appendChild(timeElement);
@@ -167,12 +178,14 @@
 
         /* This is a fun one. Loads pageUrl (can be in any format that is accepted by xmlHttpRequest), extracts the stuff in #main, and then replaces the existing #main with the new stuff.
          * It also runs a fadeout/zoomout animation to hide the existing content (run simultaneously with background page load) and, once the new page is available and the the fadeout complete) runs a fadein/zoomin animation with the new content. */
-        function loadPage(pageUrl, history, content, pageTitle) {
+        function loadPage(pageUrl, history) { console.log(pageUrl);
             var history = typeof history === 'undefined' || history;
-            var content = typeof content !== 'undefined' ? content : false;
-            var pageTitle = typeof pageTitle !== 'undefined' ? pageTitle : false;
 
-            if (!content) {
+            if (pageUrl in cachedPages) {
+                content = cachedPages[pageUrl].content;
+                pageTitle = cachedPages[pageUrl].pageTitle;
+            }
+            else {
                 xmlhttp = new XMLHttpRequest();
                 xmlhttp.open("GET", pageUrl, true);
                 xmlhttp.send();
@@ -229,8 +242,15 @@
 
                     function xmlReady() {
                         if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            showNew(xmlhttp.responseText.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"),
-                                    xmlhttp.responseText.replace(/([\s\S]*)\<title\>([\s\S]*)\<\/title\>([\s\S]*)/, "$2"));
+                            content = xmlhttp.responseText.mainFromHTML();
+                            pageTitle = xmlhttp.responseText.titleFromHTML();
+
+                            cachedPages[pageUrl] = {
+                                'content' : content,
+                                'pageTitle' : pageTitle
+                            }
+
+                            showNew(content, pageTitle);
 
                             return true;
                         }
@@ -238,7 +258,7 @@
                         return false;
                     }
 
-                    if (content) { console.log("content");
+                    if (typeof content !== 'undefined') { console.log("content");
                         showNew(content, pageTitle);
                     }
                     else if (!xmlReady()) {
