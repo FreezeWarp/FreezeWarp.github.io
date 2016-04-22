@@ -63,7 +63,8 @@ document.addEventListener('click', function(e) {
         target = target.parentNode;
     }
 
-    if(target) {
+    console.log(target.getAttribute('href'));
+    if (!target.getAttribute('href').match(/(\/\/|mailto|\#)/)) { // Pretty lazy set, but it works.
         e.preventDefault();
         loadPage(target.getAttribute('href'))
     }
