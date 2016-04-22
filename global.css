@@ -17,6 +17,10 @@ iframe {
     width: 100%;
 }
 
+h1 {
+    text-shadow: 2px 2px #aaa;
+    text-align: center;
+}
 
 /***** Navigation Menu *****/
 /* Time-consuming nightmare my foot. I can do these things in my sleep now. (Unless you want super old browser compatability, in which case I'd just toss in a JS shim and call it a day.) */
@@ -52,6 +56,9 @@ ul#primary_nav_bar a {
     to { opacity: 1; }
 }
 
+ul#primary_nav_bar > li:hover {
+    transition: background-color .3s ease;
+}
 ul#primary_nav_bar > li > ul {
     display: none; /* Hidden by default. */
     list-style-type: none; /* Remove list style. */
@@ -72,6 +79,9 @@ ul#primary_nav_bar > li:hover > ul {
 }
 
 /* Items in a popup navigation menu. */
+ul#primary_nav_bar > li > ul > li:hover { /* Pad each item and add a border as a sepeartor. */
+    transition: background-color .1s ease;
+}
 ul#primary_nav_bar > li > ul > li { /* Pad each item and add a border as a sepeartor. */
     padding: 8px 5px;
     border-bottom: 1px solid;
@@ -79,7 +89,6 @@ ul#primary_nav_bar > li > ul > li { /* Pad each item and add a border as a sepea
 ul#primary_nav_bar > li > ul > li:last-child { /* Remove the bottom border on the last item for visual consistency. */
     border-bottom: none;
 }
-
 
 
 
@@ -109,6 +118,29 @@ footer#main_footer {
     font-weight: bold;
     padding: 5px 0px;
     font-family: sans-serif;
+}
+
+
+ul.materialList {
+    list-style-type: none;
+    padding: 0px;
+}
+ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
+    text-decoration: none;
+    color: #000000;
+}
+
+
+ul.materialList li {
+    border-radius: .5em;
+    background-color: #ffffff;
+    margin: 20px;
+    padding: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
+}
+ul.materialList li:hover {
+    background-color: #efefef;
+    transition: background-color .5s ease;
 }
 
 
