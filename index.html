@@ -147,34 +147,43 @@
             setInterval(refreshClock, 1000);
         };
 
-        window.onpopstate = function(event) {
-            loadPage(document.location, false); // Obvious the lazy way.
+
+        /* Use loadPage for history navigation. */
+        window.onpopstate = function(e) {
+            loadPage(document.location, false, false);
         };
 
 
+        /* Use loadPage when a link is clicked. */
         /* I've also never used any of these (always used jQuery). It actually works rather well, doesn't it? */
         document.addEventListener('click', function(e) {
             if (e.target.tagName !== 'A')
                 return;
 
-            e.prevent   Default();
+            e.preventDefault();
             loadPage(e.target.getAttribute('href'));
         }, false); // Only works in newerish browsers. Old IE uses attachEvent instead.
 
 
         /* This is a fun one. Loads pageUrl (can be in any format that is accepted by xmlHttpRequest), extracts the stuff in #main, and then replaces the existing #main with the new stuff.
          * It also runs a fadeout/zoomout animation to hide the existing content (run simultaneously with background page load) and, once the new page is available and the the fadeout complete) runs a fadein/zoomin animation with the new content. */
-        function loadPage(pageUrl, history) {
+        function loadPage(pageUrl, history, content, pageTitle) {
+            var history = typeof history === 'undefined' || history;
+            var content = typeof content !== 'undefined' ? content : false;
+            var pageTitle = typeof pageTitle !== 'undefined' ? pageTitle : false;
+
+            if (!content) {
+                xmlhttp = new XMLHttpRequest();
+                xmlhttp.open("GET", pageUrl, true);
+                xmlhttp.send();
+            }
+
             var resizeFactor = .96;
             var resizeTarget = document.getElementById("main");
 
             resizeTarget.style.zoom = 1;
             resizeTarget.style.opacity = 1;
             resizeTarget.style.display = "inline-block";
-
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.open("GET", pageUrl, true);
-            xmlhttp.send();
 
             var timer = setInterval(function() {
                 resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
@@ -187,15 +196,15 @@
                     clearInterval(timer);
                     resizeTarget.innerHTML = "";
 
-                    function xmlFinishLoading() {
-                        resizeTarget.innerHTML = xmlhttp.responseText.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2");
-                        document.title = xmlhttp.responseText.replace(/([\s\S]*)\<title\>([\s\S]*)\<\/title\>([\s\S]*)/, "$2");
+                    function showNew(responseText, pageTitle) {
+                        resizeTarget.innerHTML = responseText;
+                        document.title = pageTitle;
 
-                        if (typeof history === 'undefined' || history) {
+                        if (history) {
                             window.history.pushState({
-                                "pageTitle": document.title,
-                                "html": resizeTarget.innerHTML
-                            }, document.title, pageUrl);
+                                "html": responseText,
+                                "pageTitle": pageTitle
+                            }, pageTitle, pageUrl);
                         }
 
                         var timer2 = setInterval(function() {
@@ -218,15 +227,22 @@
                         }, 10);
                     }
 
-                    if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                        xmlFinishLoading();
-                    }
-                    else {
-                        xmlhttp.onreadystatechange = function() {
-                            if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                                xmlFinishLoading();
-                            }
+                    function xmlReady() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            showNew(xmlhttp.responseText.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"),
+                                    xmlhttp.responseText.replace(/([\s\S]*)\<title\>([\s\S]*)\<\/title\>([\s\S]*)/, "$2"));
+
+                            return true;
                         }
+
+                        return false;
+                    }
+
+                    if (content) { console.log("content");
+                        showNew(content, pageTitle);
+                    }
+                    else if (!xmlReady()) {
+                        xmlhttp.onreadystatechange = xmlReady();
                     }
                 }
             }, 10);
