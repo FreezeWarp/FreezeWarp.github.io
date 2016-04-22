@@ -15,12 +15,22 @@ Number.prototype.zeroPad = function(num) {
 String.prototype.titleFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
 String.prototype.mainFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
 
+function setTheme(themeId) {
+    if ([1,2].indexOf(Number(themeId)) === -1) themeId = 1;
+
+    localStorage.setItem('themeId', themeId);
+    document.getElementById('themedCSS').setAttribute('href', '/theme' + themeId + '.css');
+}
+
 /* Stuff to run when the page loads (currently just the clock nonsense.) */
 window.onload = function() {
     cachedPages[window.location.pathname] = {
         'content' : document.body.innerHTML.mainFromHTML(),
         'pageTitle' : document.head.innerHTML.titleFromHTML()
     }
+
+
+    setTheme(localStorage.getItem('themeId'));
 
 
     var timeElement = document.createElement('div');
@@ -39,15 +49,16 @@ window.onload = function() {
 
 /* Use loadPage for history navigation. */
 window.onpopstate = function(e) {
-    loadPage(document.location, false, false);
+    if (!document.location.href.match(/\#/)) // Don't run when the hash changes.
+        loadPage(document.location, false, false);
 };
 
 
 /* Use loadPage when a link is clicked. */
 /* I've also never used any of these (always used jQuery). It actually works rather well, doesn't it? */
 document.addEventListener('click', function(e) {
-    window.x = e;
-    if (e.target.tagName !== 'A' || e.target.getAttribute('href').match(/(\/\/|mailto)/)) // Match is super lazy, but works for us.
+
+    if (e.target.tagName !== 'A' || e.target.getAttribute('href').match(/(\/\/|mailto|\#)/)) // Match is super lazy, but works for us.
         return;
 
     e.preventDefault();
