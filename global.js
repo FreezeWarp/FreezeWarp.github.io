@@ -23,9 +23,9 @@ window.onload = function() {
     }
 
 
-    var timeElement = document.createElement('li');
+    var timeElement = document.createElement('div');
     timeElement.setAttribute('id', 'dateContainer');
-    document.getElementById('primary_nav_bar').appendChild(timeElement);
+    document.getElementById('main_footer').appendChild(timeElement);
 
     function refreshClock() {
         var date = new Date();
