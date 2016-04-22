@@ -151,6 +151,17 @@
             loadPage(document.location, false); // Obvious the lazy way.
         };
 
+
+        /* I've also never used any of these (always used jQuery). It actually works rather well, doesn't it? */
+        document.addEventListener('click', function(e) {
+            if (e.target.tagName !== 'A')
+                return;
+
+            e.prevent   Default();
+            loadPage(e.target.getAttribute('href'));
+        }, false); // Only works in newerish browsers. Old IE uses attachEvent instead.
+
+
         /* This is a fun one. Loads pageUrl (can be in any format that is accepted by xmlHttpRequest), extracts the stuff in #main, and then replaces the existing #main with the new stuff.
          * It also runs a fadeout/zoomout animation to hide the existing content (run simultaneously with background page load) and, once the new page is available and the the fadeout complete) runs a fadein/zoomin animation with the new content. */
         function loadPage(pageUrl, history) {
@@ -219,6 +230,8 @@
                     }
                 }
             }, 10);
+
+            return false;
         }
     </script>
 
@@ -256,7 +269,7 @@
                     <li><a href="/writing/philosophy/pornography.html">On Pornography</a></li>
                 </ul>
             </li>
-            <li><a href="/contact.html">Contact</a>
+            <li><a href="./contact.html">Contact</a>
                 <ul>
                     <li><a href="mailto:josephtparsons@gmail.com">Email</a></li>
                     <li><a href="https://www.linkedin.com/in/josephtparsons">LinkedIn</a></li>
