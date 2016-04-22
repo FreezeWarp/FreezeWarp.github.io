@@ -19,7 +19,19 @@ iframe {
 }
 
 h1 {
-    text-shadow: 2px 2px #aaa;
+    text-align: center;
+}
+
+.highlights {
+    float: left;
+    margin-right: 30px;
+    border-radius: .25em;
+    padding: 0px 15px;
+}
+.gallery img {
+    margin: 20px;
+}
+.gallery {
     text-align: center;
 }
 
@@ -128,26 +140,16 @@ ul.materialList {
 }
 ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
     text-decoration: none;
-    color: #000000;
 }
 
 
 ul.materialList li {
     border-radius: .5em;
-    background-color: #ffffff;
     margin: 20px;
     padding: 10px;
 }
 ul.materialList li:hover {
-    background-color: #efefef;
     transition: all .5s ease;
-}
-
-iframe, ul.materialList li {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12),0 1px 2px rgba(0,0,0,0.24);
-}
-ul.materialList li:hover, ul#primary_nav_bar > li:hover > ul {
-    box-shadow: 0 3px 5px rgba(0,0,0,0.24),0 2px 4px rgba(0,0,0,0.48);
 }
 
 ul.breadcrumbs {
