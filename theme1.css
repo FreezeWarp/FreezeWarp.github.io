@@ -41,10 +41,10 @@ footer#main_footer {
     border-color: black;
 }
 
-#myName {
-    color: white;
-    background: rgba(39,200,240,1);
-    background: linear-gradient(to right, rgba(39,200,240,.6) 0%, rgba(0,157,201,.8) 100%);
+.gradient1 {
+    color: black;
+    background: rgba(255,93,177,1);
+    background: linear-gradient(to right, rgba(255,93,177,1) 0%, rgba(239,1,124,.7) 100%);
 }
 
 input:invalid {

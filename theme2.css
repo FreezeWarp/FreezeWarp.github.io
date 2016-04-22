@@ -40,7 +40,7 @@ footer#main_footer {
     border-color: black;
 }
 
-#myName {
+.gradient1 {
     color: white;
     background: rgba(39,200,240,1);
     background: linear-gradient(to right, rgba(39,200,240,.6) 0%, rgba(0,157,201,.8) 100%);
