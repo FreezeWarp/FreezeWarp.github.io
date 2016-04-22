@@ -23,15 +23,15 @@
             </tr>
             <tr>
                 <td><label for="contactEmail">Email: </label></td>
-                <td><input type="text" name="contactEmail" id="contactEmail" /></td>
+                <td><input type="email" name="contactEmail" id="contactEmail" /></td>
             </tr>
             <tr>
                 <td><label for="contactPhone">Phone: </label></td>
-                <td><input type="text" name="contactPhone" id="contactPhone" /></td>
+                <td><input type="tel" name="contactPhone" id="contactPhone" pattern="(1( | -|\.)|)(\(\d{3}\)( |)|\d{3}( |-|\.|)|)\d{3}( |-|\.|)\d{4}"  /></td>
             </tr>
             <tr>
                 <td><label for="contactFacebook">Facebook: </label></td>
-                <td><input type="text" name="contactFacebook" id="contactFacebook" /></td>
+                <td><input type="text" name="contactFacebook" id="contactFacebook" pattern="http(s|):\/\/www.facebook.com/.+" /></td>
             </tr>
             <tr>
                 <th colspan="2">Message:</th>
@@ -42,7 +42,7 @@
             </tr>
             <tr>
                 <td><label for="messageBody">Message Body: </label></td>
-                <td><textarea name="messageBody" id="messageBody"></textarea></td>
+                <td><textarea name="messageBody" id="messageBody" rows="10" cols="50" ></textarea></td>
             </tr>
         </table>
     </form>
