@@ -77,9 +77,9 @@
             border-bottom: 2px solid black;
         }
 
-        main#main {
-            padding: 20px;
+        #mainHolder {
             background-color: #ffffff;
+            padding: 20px;
         }
 
         footer#main_footer {
@@ -220,8 +220,6 @@
                 }
             }, 10);
         }
-
-
     </script>
 
 </head>
@@ -268,23 +266,25 @@
         </ul>
     </nav>
 </header>
-<main id="main">
-    <aside id="headshot">
-        <div>
-            <img src="mugshot.jpg" width="250px" alt="" /><br />
-            <span id="myName">Joseph Parsons</span>
-        </div>
-    </aside>
-    <article>
-        <h1>Joseph T. Parsons</h1>
-        Welcome! This is a site about me. For some reason. I mean, eh. You should probably use my LinkedIn profile, but whatever. Here's this too, then.
-        <h2>Why Joseph?</h2>
-        He knows stuff! A lot of stuff. Or something.
-        <div id="slideshow">
-            <img src="im1.png" />
-        </div>
-    </article>
-</main>
+<div id="mainHolder">
+    <main id="main">
+        <aside id="headshot">
+            <div>
+                <img src="mugshot.jpg" width="250px" alt="" /><br />
+                <span id="myName">Joseph Parsons</span>
+            </div>
+        </aside>
+        <article>
+            <h1>Joseph T. Parsons</h1>
+            Welcome! This is a site about me. For some reason. I mean, eh. You should probably use my LinkedIn profile, but whatever. Here's this too, then.
+            <h2>Why Joseph?</h2>
+            He knows stuff! A lot of stuff. Or something.
+            <div id="slideshow">
+                <img src="im1.png" />
+            </div>
+        </article>
+    </main>
+</div>
 <footer id="main_footer">
     Copyright &copy; 2016 Joseph T. Parsons
 </footer>
