@@ -8,7 +8,13 @@
 </head>
 <body>
 <main id="main">
-    <aside class="highlights">
+    <ul class="breadcrumbs">
+        <li><a href="../">Homepage</a></li>
+        <li><a href="./">Coding</a></li>
+        <li>This Page</li>
+    </ul>
+    <h1>Console Blackjack in C</h1>
+    <aside class="highlights card">
         <h3>Highlights</h3>
         <ul>
             <li>C Programming</li>
@@ -20,11 +26,11 @@
 
     This is a fairly simple, albeit still substantial, C programme that simulates basic blackjack in the console, but does so with a bang: timing events are used to make the game feel more natural (one hand will appear, a delay of a few seconds, and the next hand will appear), and unicode is used to the greatest extent possible to try and make the game seem slightly more believable. You can play multiple hands, your earnings will persist overtime if you use the -r flag, and if you feel like training a bit, you can use -c to count cards. <strong>Notably, this game uses one or more fixed decks</strong>: when a card is dealt, it is removed from the deck, and when a deck runs out of cards, the whole deck is reshuffled. This means that you could easily use this program as a card-counting trainer, as it simulates a real deck (or decks!) as completely.
 
-    <aside class="download">
+    <aside class="download card">
         <h3>Download</h3>
         <ul>
-            <li><a href="https://github.com/FreezeWarp/c-examples/tree/master/blackjack">SourceCode (GitHub)</a></li>
-            <li><a href="/downloads/blackjack.exe">Windows Compiled .exe</a></li>
+            <li><a target="_blank" href="https://github.com/FreezeWarp/c-examples/tree/master/blackjack">SourceCode (GitHub)</a></li>
+            <li><a target="_blank" href="/downloads/blackjack.exe">Windows Compiled .exe</a></li>
         </ul>
     </aside>
 
@@ -42,7 +48,7 @@
     </ul>
 
     <h2>Sample Run</h2>
-    <pre class="cols3">
+    <pre class="cols3 card">
         Administrator@WIN-xyz C:\Users\Administrator\Documents\blackjack
 $ blackjack.exe
 You currently have 100000. How much would you like to bet this round (0 to quit)? 1000
