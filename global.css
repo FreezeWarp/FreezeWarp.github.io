@@ -13,6 +13,10 @@ img {
     max-width: 100%; /* Images shouldn't cause overflows. */
 }
 
+iframe {
+    width: 100%;
+}
+
 
 /***** Navigation Menu *****/
 /* Time-consuming nightmare my foot. I can do these things in my sleep now. (Unless you want super old browser compatability, in which case I'd just toss in a JS shim and call it a day.) */
