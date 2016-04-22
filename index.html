@@ -88,6 +88,8 @@
             border-top: 2px solid black;
             text-align: center;
             bottom: 0px;
+            font-weight: bold;
+            padding: 5px 0px;
         }
 
 
@@ -142,26 +144,62 @@
             setInterval(refreshClock, 1000);
         };
 
-        function loadPage() {
-            var resizeFactor = .96;
+        function loadPage(pageUrl) {
+            var pageData = "";
 
-            document.getElementById("main").style.zoom = 1;
-            document.getElementById("main").style.opacity = 1;
-            document.getElementById("main").style.display = "inline-block";
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function () {
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                    console.log(xmlhttp.responseText);
+                    replacePageContents(xmlhttp.responseText.replace(/(.+)\<main id="main"\>(.+)\<\/main\>(.+)/g, "$2"));
+                }
+            }
+            xmlhttp.open("GET", pageUrl, true);
+            xmlhttp.send();
+        }
+
+        function replacePageContents(contents) {
+            var resizeFactor = .96;
+            var resizeTarget = document.getElementById("main");
+
+            resizeTarget.style.zoom = 1;
+            resizeTarget.style.opacity = 1;
+            resizeTarget.style.display = "inline-block";
 
             var timer = setInterval(function() {
-                document.getElementById("main").style.zoom = resizeFactor * document.getElementById("main").style.zoom;
-                document.getElementById("main").style.opacity = resizeFactor * document.getElementById("main").style.opacity;
-                document.getElementById("main").style.marginLeft = (1 - document.getElementById("main").style.zoom) * 50 + "%";
-                document.getElementById("main").style.marginRight = (1 - document.getElementById("main").style.zoom) * 50 + "%";
-                document.getElementById("main").style.width = document.getElementById("main").style.zoom * 100 + "%";
+                resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
+                resizeTarget.style.opacity = resizeTarget.style.zoom;
+                resizeTarget.style.marginLeft = (1 - resizeTarget.style.zoom) * 50 + "%";
+                resizeTarget.style.marginRight = (1 - resizeTarget.style.zoom) * 50 + "%";
+                resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
 
-                if (document.getElementById("main").style.zoom < .1) {
+                if (resizeTarget.style.zoom < .1) {
                     clearInterval(timer);
-                    document.getElementById("main").innerHTML = "";
+                    resizeTarget.innerHTML = "";
+                    resizeTarget.innerHTML = contents;
+
+                    var timer2 = setInterval(function() {
+                        resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
+                        resizeTarget.style.opacity = resizeTarget.style.zoom;
+                        resizeTarget.style.marginLeft = (1 - resizeTarget.style.zoom) * 50 + "%";
+                        resizeTarget.style.marginRight = (1 - resizeTarget.style.zoom) * 50 + "%";
+                        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
+
+                        if (resizeTarget.style.zoom > .9) {
+                            clearInterval(timer);
+
+                            resizeTarget.style.zoom = 1;
+                            resizeTarget.style.opacity = 1;
+                            resizeTarget.style.marginLeft = 0;
+                            resizeTarget.style.marginRight = 0;
+                            resizeTarget.style.display = "block";
+                        }
+                    }, 10);
                 }
             }, 10);
         }
+
+
     </script>
 
 </head>
