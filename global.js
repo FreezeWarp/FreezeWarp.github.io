@@ -64,7 +64,7 @@ document.addEventListener('click', function(e) {
     }
 
     console.log(target.getAttribute('href'));
-    if (!target.getAttribute('href').match(/(\/\/|mailto|\#)/)) { // Pretty lazy set, but it works.
+    if (!target.getAttribute('href').match(/(\/\/)/) && target.getAttribute('href').match(/(\.html|\/)$/)) { // Pretty lazy set, but it works.
         e.preventDefault();
         loadPage(target.getAttribute('href'))
     }
