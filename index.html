@@ -177,8 +177,8 @@
                     resizeTarget.innerHTML = "";
 
                     function xmlFinishLoading() {
-                        resizeTarget.innerHTML = xmlhttp.responseText.replace(/(.*)\<main id="main"\>(.*)\<\/main\>(.*)/g, "$2");
-                        document.title = xmlhttp.responseText.replace(/(.*)\<title\>(.*)\<\/title\>(.*)/g, "$2");
+                        resizeTarget.innerHTML = xmlhttp.responseText.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2");
+                        document.title = xmlhttp.responseText.replace(/([\s\S]*)\<title\>([\s\S]*)\<\/title\>([\s\S]*)/, "$2");
 
                         if (typeof history === 'undefined' || history) {
                             window.history.pushState({
