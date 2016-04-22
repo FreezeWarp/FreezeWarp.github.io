@@ -24,17 +24,17 @@ ul#primary_nav_bar > li > ul > li:hover {
 
 ul#primary_nav_bar > li:hover > ul {
     background-color: #934663;
-    border-color: #000000;
+    border-color: #7E2384;
 }
 ul#primary_nav_bar > li > ul > li {
-    border-color: black;
+    border-color: #7E2384;
 }
 
 header#main_header {
     border-bottom-color: #7E2384;
 }
 #mainHolder {
-    background-color: #ffffff;
+    background-color: #ede1e5;
     color: #000000;
 }
 footer#main_footer {
