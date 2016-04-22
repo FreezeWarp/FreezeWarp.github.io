@@ -17,7 +17,7 @@ ul#primary_nav_bar a:visited:active {
     color: #bfbfbf;
 }
 ul#primary_nav_bar > li:hover,
-ul#primary_nav_bar > li > ul > li:hover {
+ul#primary_nav_bar > li > ul > a > li:hover {
     /*background-color: #822E81;*/
     background-color: #914A90;
 }
@@ -26,7 +26,7 @@ ul#primary_nav_bar > li:hover > ul {
     background-color: #934663;
     border-color: #7E2384;
 }
-ul#primary_nav_bar > li > ul > li {
+ul#primary_nav_bar > li > ul > a > li {
     border-color: #7E2384;
 }
 
