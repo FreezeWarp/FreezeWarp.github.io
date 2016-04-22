@@ -5,44 +5,224 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
     <title>Let's Call it a Portfolio</title>
+    <style>
+        * {
+            box-sizing: border-box; /* Not really needed here, but makes the JS pageload animation a lot easier. If not supported, that will just be slightly unaligned. */
+        }
+        html, body {
+            height: 100%; /* Makes the footer always appear at the bottom of the page, which is nice. */
+        }
+        body {
+            padding: 0px; /* Get rid of the annoying default spacing on the body. */
+            margin: 0px;
+        }
+
+        img {
+            max-width: 100%; /* Images shouldn't cause overflows. */
+        }
+
+
+        /***** Navigation Menu *****/
+        /* Time-consuming nightmare my foot. I can do these things in my sleep now. (Unless you want super old browser compatability, in which case I'd just toss in a JS shim and call it a day.) */
+        /* First-level navigation bar and items. */
+        ul#primary_nav_bar {
+            list-style-type: none; /* Shouldn't be a list. */
+            padding: 10px;
+            margin: 0px;
+        }
+        ul#primary_nav_bar > li {
+            display: inline-block; /* Make items stack horizontally instead of vertically. */
+            padding: 0px 40px;
+        }
+
+        /* Popup navigation menu. */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        ul#primary_nav_bar > li > ul {
+            display: none; /* Hidden by default. */
+            list-style-type: none; /* Remove list style. */
+            padding-left: 0px; /* Get rid of awkward padding. */
+            opacity: 0;
+            transition: opacity 1s ease-out;
+        }
+        ul#primary_nav_bar > li:hover > ul {
+            z-index: 1000; /* Make sure the popup appears over everything. */
+            position: absolute; /* Should go outside of element flow. */
+            display: block;
+            background-color: #afafaf;
+            border: 2px solid black;
+            opacity: 1;
+            animation: fadeIn .3s ease;
+        }
+
+        /* Items in a popup navigation menu. */
+        ul#primary_nav_bar > li > ul > li { /* Pad each item and add a border as a sepeartor. */
+            padding: 5px 3px;
+            border-bottom: 1px solid black;
+        }
+        ul#primary_nav_bar > li > ul > li:last-child { /* Remove the bottom border on the last item for visual consistency. */
+            border-bottom: none;
+        }
+
+
+
+        /* Header and Footer */
+        header#main_header {
+            display: block;
+            background-color: #afafaf;
+            border-bottom: 2px solid black;
+        }
+
+        footer#main_footer {
+            display: block;
+            background-color: #afafaf;
+            border-top: 2px solid black;
+            bottom: 0px;
+        }
+
+
+        /* Other stuff. */
+        #name {
+            position: relative;
+            top: -.5em;
+            padding: 5px;
+            font-size: 2em;
+            color: white;
+            background: rgba(39,200,240,1);
+            background: linear-gradient(to right, rgba(39,200,240,.6) 0%, rgba(0,157,201,.8) 100%);
+            border-radius: .2em;
+        }
+
+        main#main {
+            padding: 20px;
+        }
+        aside#headshot {
+            float: left;
+            margin-right: 20px;
+            text-align: center;
+        }
+        aside#headshot #name {
+            display: inline-block;
+        }
+
+        #dateContainer {
+            font-weight: bold;
+        }
+    </style>
+
+    <script type="text/javascript">
+        Number.prototype.zeroPad = function(num) {
+            var asString = this.valueOf().toString();
+            var neededZeros = num - asString.length;
+
+            while (neededZeros-- > 0)
+                asString = '0' + asString;
+
+            return asString;
+        };
+
+        window.onload = function() {
+            var timeElement = document.createElement('li');
+            timeElement.setAttribute('id', 'dateContainer');
+            document.getElementById('primary_nav_bar').appendChild(timeElement);
+
+            function refreshClock() {
+                var date = new Date();
+                document.getElementById('dateContainer').innerHTML = date.getHours().zeroPad(2) + ':' + date.getMinutes().zeroPad(2) + ':' + date.getSeconds().zeroPad(2);
+            }
+
+            refreshClock();
+            setInterval(refreshClock, 1000);
+        };
+
+        function loadPage() {
+            var resizeFactor = .96;
+
+            document.getElementById("main").style.zoom = 1;
+            document.getElementById("main").style.opacity = 1;
+            document.getElementById("main").style.display = "inline-block";
+
+            var timer = setInterval(function() {
+                document.getElementById("main").style.zoom = resizeFactor * document.getElementById("main").style.zoom;
+                document.getElementById("main").style.opacity = resizeFactor * document.getElementById("main").style.opacity;
+                document.getElementById("main").style.marginLeft = (1 - document.getElementById("main").style.zoom) * 50 + "%";
+                document.getElementById("main").style.marginRight = (1 - document.getElementById("main").style.zoom) * 50 + "%";
+                document.getElementById("main").style.width = document.getElementById("main").style.zoom * 100 + "%";
+
+                if (document.getElementById("main").style.zoom < .1) {
+                    clearInterval(timer);
+                    document.getElementById("main").innerHTML = "";
+                }
+            }, 10);
+        }
+    </script>
+
 </head>
 <body>
-<header>
+<header id="main_header">
     <nav>
         <ul id="primary_nav_bar">
-            <li>Home</li>
-            <li>Coding
+            <li><a href="/">Home</a></li>
+            <li><a href="/coding/">Coding</a>
                 <ul>
-                    <li>Instant Messenger (PHP, MySQL, and APIs)</li>
-                    <li>TODO: Instant Messenger HTML Frontend (jQuery, Bootstrap, HTML)</li>
-                    <li>TODO: Instant Messenger Java Frontend (Java)</li>
-                    <li>SeanCooperWriter.com (Wordpress, CSS)</li>
-                    <li>Console Blackjack (C)</li>
-                    <li>C Coursework (C)</li>
-                    <li>C Practice Tests (C, Tutoring)</li>
-                    <li>Python Coursework (C)</li>
-                    <li>C++ Coursework (C++)</li>
-                    <li>Java Coursework (Java)</li>
+                    <li><a href="/coding/im-api.html">Instant Messenger (PHP, MySQL, and APIs)</a></li>
+                    <li><a href="/coding/im-html.html">Instant Messenger HTML Frontend (jQuery, Bootstrap, HTML)</a></li>
+                    <li><a href="/coding/im-java.html">Instant Messenger Java Frontend (Java)</a></li>
+                    <li><a href="/coding/scw.html">SeanCooperWriter.com (Wordpress, CSS)</a></li>
+                    <li><a href="/coding/bj.html">Console Blackjack (C)</a></li>
+                    <li><a href="/coding/c-tutor.html">C Practice Tests (C, Tutoring)</a></li>
+                    <li><a href="/coding/coursework/c.html">C Coursework (C)</a></li>
+                    <li><a href="/coding/coursework/python.html">Python Coursework (C)</a></li>
+                    <li><a href="/coding/coursework/c++.html">C++ Coursework (C++)</a></li>
+                    <li><a href="/coding/coursework/java.html">Java Coursework (Java)</a></li>
                 </ul>
             </li>
-            <li>Writing on Technology
+            <li><a href="/writing/technology/">Writing on Technology</a>
                 <ul>
-                    <li>Mobile Support for Top 1,000,000 Websites</li>
-                    <li>Maine and the Future of Computers in Schools</li>
-                    <li>The Personalised Future: The March Towards Intrapersonal Devices</li>
+                    <li><a href="/writing/technology/mobile.html">Mobile Support for Top 1,000,000 Websites</a></li>
+                    <li><a href="/writing/technology/mobile.html">Maine and the Future of Computers in Schools</a></li>
+                    <li><a href="/writing/technology/mobile.html">The Personalised Future: The March Towards Intrapersonal Devices</a></li>
                 </ul>
             </li>
-            <li>Writing on Philosophy
+            <li><a href="/writing/philosophy/">Writing on Philosophy</a>
                 <ul>
-                    <li>Ethical Justness</li>
-                    <li>In Favour of Choosing</li>
-                    <li>On Pornography</li>
+                    <li><a href="/writing/philosophy/justness.html">Ethical Justness</a></li>
+                    <li><a href="/writing/philosophy/choosing.html">In Favour of Choosing</a></li>
+                    <li><a href="/writing/philosophy/pornography.html">On Pornography</a></li>
                 </ul>
             </li>
-            <li>Home</li>
-            <li>Contact</li>
+            <li><a href="/contact.html">Contact</a>
+                <ul>
+                    <li><a href="mailto:josephtparsons@gmail.com">Email</a></li>
+                    <li><a href="https://www.linkedin.com/in/josephtparsons">LinkedIn</a></li>
+                    <li><a href="https://www.facebook.com/freezewarp">Facebook</a></li>
+                </ul>
+            </li>
         </ul>
     </nav>
 </header>
+<main id="main">
+    <aside id="headshot">
+        <div>
+            <img src="mugshot.jpg" width="250px" alt="" /><br />
+            <span id="name">Joseph Parsons</span>
+        </div>
+    </aside>
+    <article>
+        <h1>Joseph T. Parsons</h1>
+        Welcome! This is a site about me. For some reason. I mean, eh. You should probably use my LinkedIn profile, but whatever. Here's this too, then.
+        <h2>Why Joseph?</h2>
+        He knows stuff! A lot of stuff. Or something.
+        <div id="slideshow">
+            <img src="im1.png" />
+        </div>
+    </article>
+</main>
+<footer id="main_footer">
+    Copyright &copy; 2016 Joseph T. Parsons
+</footer>
 </body>
 </html>
