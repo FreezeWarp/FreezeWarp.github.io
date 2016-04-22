@@ -59,6 +59,7 @@ ul#primary_nav_bar > li:hover > ul {
     border: 2px solid;
     opacity: 1;
     animation: fadeIn .3s ease;
+    text-align: left;
 }
 
 /* Items in a popup navigation menu. */
@@ -113,4 +114,20 @@ aside#headshot #name {
 
 #dateContainer {
     font-weight: bold;
+}
+
+.facebookIcon {
+    background: #3b5998 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAsklEQVR42q3TPQrCQBCGYbGyS0RIjOAxPISlreJ9vISF1lYewFsIa2NlHdP4m+j6FlMsQ6IuycJTzMJ+7OxPy1pbS+MBAaIfgqqAEAZnJcMDBS4w6JYFxHiibGyxwF7qpCrgCj2Wzg5XMtf3CZgjQiH1zSdggxF6WOOE/N+Al9ur2Pm2cMRYFhi8cfc9gxmGsO4Z+FzjVAXkSL49pEyZYIBU6oN+SDokVjpoO3XY+Geq5QPvIk/5SRu4pgAAAABJRU5ErkJggg==);
+    background-size: cover;
+}
+
+.linkedinIcon {
+    background: #007fb1 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAt0lEQVQ4y2P4//8/AyWYYVAZwALEXUC8C4g1yTGAH4h//IeAZHK9YAPE8UDMTa4XeoF4EdQLkUC8DogrgXgKEJ8D4sVALIPLADYgfgn1gjM0PGDgPRJ7ExAz4jLgAVSRIxC3QtkgmwWhXgOBz1A+0QbMg8rrQvk/gViCGAPaoOyFUHkDKP8HPgOeI4VBN5S9HCpvhBQOWA1gBeJVQHwMiA2BOA2IjwNxFVReFSq3B4iFBmdeIAsDAEyPLq1Du8FSAAAAAElFTkSuQmCC);
+    background-size: cover;
+}
+.imageIcon {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    vertical-align: middle;
 }
