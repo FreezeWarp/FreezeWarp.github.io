@@ -31,7 +31,7 @@ ul#primary_nav_bar > li > ul > li {
 }
 
 header#main_header {
-    border-bottom: 2px solid black;
+    border-bottom-color: black;
 }
 #mainHolder {
     background-color: #3f3f3f;

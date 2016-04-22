@@ -20,6 +20,11 @@ img {
 nav {
     text-align: center;
 }
+
+li#skipToMain {
+    display: none !important;
+}
+
 ul#primary_nav_bar {
     font-size: 0px;
     display: inline-block; /* Allows centring. */
@@ -70,6 +75,7 @@ ul#primary_nav_bar > li > ul > li { /* Pad each item and add a border as a sepea
 ul#primary_nav_bar > li > ul > li:last-child { /* Remove the bottom border on the last item for visual consistency. */
     border-bottom: none;
 }
+
 
 
 
@@ -130,4 +136,40 @@ aside#headshot #name {
     height: 16px;
     width: 16px;
     vertical-align: middle;
+}
+
+
+
+/* Nice thing is, this general type of layout is already really print and screen reader friendly. We remove some unecessary colouring for the print layout, show the skip-to-content link on the speech layout, and hide the display settings (which are useless) for speech as well. */
+
+@media print {
+    /* Obviously you don't need navigation if you're printing. */
+    nav {
+        display: none;
+    }
+
+    /* Otherwise, just set colors to black/white. */
+    body {
+        background-color: #ffffff !important; /* Will be used with header and footer. */
+        color: #000000 !important;
+    }
+
+    #mainHolder {
+        background-color: #ffffff !important;
+    }
+
+    footer#main_footer {
+        border-color: black;
+    }
+}
+
+
+/* Look, let's be clear about something: this is a deprecated feature. You are not supposed to use @media braille. That it is being taught it disgraceful.  Speech, print, and screen -- these are the only non-deprecated media types. */
+@media speech, braille {
+    #skipToMain {
+        display: list-item; /* Inline-block not allowed in @braille */
+    }
+    #displaySettings {
+        display: none;
+    }
 }
