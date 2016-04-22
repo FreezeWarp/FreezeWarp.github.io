@@ -22,6 +22,7 @@ nav {
     text-align: center;
 }
 ul#primary_nav_bar {
+    font-size: 0px;
     display: inline-block; /* Allows centring. */
     list-style-type: none; /* Shouldn't be a list. */
     font-family: sans-serif;
@@ -29,8 +30,9 @@ ul#primary_nav_bar {
     margin: 0px;
 }
 ul#primary_nav_bar > li {
+    font-size: 11pt;
     display: inline-block; /* Make items stack horizontally instead of vertically. */
-    padding: 10px 40px;
+    padding: 15px 40px;
 }
 ul#primary_nav_bar a {
     text-decoration: none;
@@ -66,7 +68,7 @@ ul#primary_nav_bar > li > ul {
 ul#primary_nav_bar > li:hover > ul {
     z-index: 1000; /* Make sure the popup appears over everything. */
     position: absolute; /* Should go outside of element flow. */
-    margin-top: 10px; /* (same as ul#primary_nav_bar > li: padding-bottom) */
+    margin-top: 15px; /* (same as ul#primary_nav_bar > li: padding-bottom) */
     margin-left: -40px; /* (same as ul#primary_nav_bar > li: padding-left) */
     display: block;
     background-color: #afafaf;
@@ -77,8 +79,8 @@ ul#primary_nav_bar > li:hover > ul {
 
 /* Items in a popup navigation menu. */
 ul#primary_nav_bar > li > ul > li { /* Pad each item and add a border as a sepeartor. */
-    padding: 5px 3px;
     border-bottom: 1px solid black;
+    padding: 8px 5px;
 }
 ul#primary_nav_bar > li > ul > li:last-child { /* Remove the bottom border on the last item for visual consistency. */
     border-bottom: none;
