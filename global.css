@@ -1,3 +1,4 @@
+@charset "UTF-8";
 * {
     box-sizing: border-box; /* Not really needed here, but makes the JS pageload animation a lot easier. If not supported, that will just be slightly unaligned. */
 }
@@ -189,7 +190,7 @@ ul.materialList li {
     padding: 10px;
 }
 ul.materialList li:hover {
-    transition: all .5s ease;
+    transition: all .3s ease;
 }
 
 ul.breadcrumbs {
