@@ -1,0 +1,52 @@
+body {
+    background-color: #AA6373; /* Will be used with header and footer. */
+    color: white;
+}
+
+li.current {
+    background-color: #7E2384
+}
+ul#primary_nav_bar a:link {
+    color: #ffffff;
+}
+ul#primary_nav_bar a:visited,
+ul#primary_nav_bar a:active {
+    color: #dfdfdf;
+}
+ul#primary_nav_bar a:visited:active {
+    color: #bfbfbf;
+}
+ul#primary_nav_bar > li:hover,
+ul#primary_nav_bar > li > ul > li:hover {
+    /*background-color: #822E81;*/
+    background-color: #914A90;
+}
+
+ul#primary_nav_bar > li:hover > ul {
+    background-color: #934663;
+    border-color: #000000;
+}
+ul#primary_nav_bar > li > ul > li {
+    border-color: black;
+}
+
+header#main_header {
+    border-bottom-color: #7E2384;
+}
+#mainHolder {
+    background-color: #ffffff;
+    color: #000000;
+}
+footer#main_footer {
+    border-color: black;
+}
+
+#myName {
+    color: white;
+    background: rgba(39,200,240,1);
+    background: linear-gradient(to right, rgba(39,200,240,.6) 0%, rgba(0,157,201,.8) 100%);
+}
+
+input:invalid {
+    border: 1px solid red;
+}
