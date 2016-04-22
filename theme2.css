@@ -1,21 +1,36 @@
+/* This theme is for having fun with stupid effects. It should still be completely usable, but it will be fun (and at times distracting) to use as well. */
+
+@keyframes boxGlow {
+    from { box-shadow: 0 3px 5px rgba(0,197,255,0.24),0 3px 5px rgba(0,197,255,0.48); }
+    50% { box-shadow: 0 3px 5px rgba(0,255,197,0.24),0 3px 5px rgba(0,255,197,0.48); }
+    to { box-shadow: 0 3px 5px rgba(0,197,255,0.24),0 3px 5px rgba(0,197,255,0.48); }
+}
+
+@keyframes textGlow {
+    from { text-shadow: 1px 1px #0bf; }
+    50% { text-shadow: 1px 1px #0fb; }
+    to { text-shadow: 1px 1px #0bf; }
+}
+
 body {
     background-color: #5f5f5f; /* Will be used with header and footer. */
     color: #ffffff;
 }
 h1 {
-    text-shadow: 1px 1px #0bf;
+    animation: textGlow 3s infinite;
 }
 
 iframe, ul.materialList li {
     box-shadow: 0 1px 3px rgba(255,255,255,0.12),0 1px 2px rgba(255,255,255,0.24);
 }
-ul.materialList li:hover, ul#primary_nav_bar > li:hover > ul {
-    box-shadow: 0 3px 5px rgba(0,197,255,0.24),0 3px 5px rgba(0,197,255,0.48);
+ul.materialList li:hover, ul#primary_nav_bar > li:hover > ul, .gallery img, .card {
+    animation: boxGlow 2s infinite;
 }
+
 ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
      color: #ffffff;
 }
-ul.materialList li {
+ul.materialList li, .card {
     background-color: #000000;
 }
 ul.materialList li:hover {
@@ -26,17 +41,20 @@ li.current {
     background-color: #000000;
 }
 
-ul#primary_nav_bar a:link, ul.breadcrumbs a:link {
+ul#primary_nav_bar a:link, ul.breadcrumbs a:link, .card a:link {
     color: #ffffff;
 }
 ul#primary_nav_bar a:visited,
 ul#primary_nav_bar a:active,
 ul.breadcrumbs a:visited,
-ul.breadcrumbs a:active {
+ul.breadcrumbs a:active,
+.card a:visited,
+.card a:active {
     color: #efefef;
 }
 ul#primary_nav_bar a:visited:active,
-ul.breadcrumbs a:visited:active {
+ul.breadcrumbs a:visited:active,
+.card a:visited:active {
     color: #dfdfdf;
 }
 ul#primary_nav_bar > li:hover,
@@ -47,29 +65,29 @@ ul#primary_nav_bar > li > ul > a > li:hover {
 ul.breadcrumbs {
     font-weight: bold;
 }
-ul.breadcrumbs a:hover {
+ul.breadcrumbs a:hover, .card a:hover {
     text-shadow: 1px 1px #0aa;
 }
 ul#primary_nav_bar > li:hover > ul {
-    background-color: rgba(111,111,111,.8);
+    background-color: rgba(111,111,111,.9);
     border-color: #000000;
 }
 ul#primary_nav_bar > li > ul > a > li {
-    border-color: black;
+    border-color: #000000;
 }
 
 header#main_header {
-    border-bottom-color: black;
+    border-bottom-color: #000000;
 }
 #mainHolder {
     background-color: #3f3f3f;
 }
 footer#main_footer {
-    border-color: black;
+    border-color: #000000;
 }
 
 .gradient1 {
-    color: white;
+    color: #ffffff;
     background: rgba(39,200,240,1);
     background: linear-gradient(to right, rgba(39,200,240,.6) 0%, rgba(0,157,201,.8) 100%);
 
