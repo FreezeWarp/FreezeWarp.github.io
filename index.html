@@ -147,6 +147,9 @@
             setInterval(refreshClock, 1000);
         };
 
+        window.onpopstate = function(event) {
+            loadPage(document.location, false); // Obvious the lazy way.
+        };
 
         /* This is a fun one. Loads pageUrl (can be in any format that is accepted by xmlHttpRequest), extracts the stuff in #main, and then replaces the existing #main with the new stuff.
          * It also runs a fadeout/zoomout animation to hide the existing content (run simultaneously with background page load) and, once the new page is available and the the fadeout complete) runs a fadein/zoomin animation with the new content. */
@@ -177,10 +180,12 @@
                         resizeTarget.innerHTML = xmlhttp.responseText.replace(/(.*)\<main id="main"\>(.*)\<\/main\>(.*)/g, "$2");
                         document.title = xmlhttp.responseText.replace(/(.*)\<title\>(.*)\<\/title\>(.*)/g, "$2");
 
+                        if (typeof history === 'undefined' || history) {
                             window.history.pushState({
                                 "pageTitle": document.title,
                                 "html": resizeTarget.innerHTML
                             }, document.title, pageUrl);
+                        }
 
                         var timer2 = setInterval(function() {
                             resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
