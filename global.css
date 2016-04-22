@@ -7,7 +7,7 @@ html, body {
 body {
     padding: 0px; /* Get rid of the annoying default spacing on the body. */
     margin: 0px;
-    background-color: #afafaf; /* Will be used with header and footer. */
+    background-color: #5f5f5f; /* Will be used with header and footer. */
 }
 
 img {
@@ -18,14 +18,36 @@ img {
 /***** Navigation Menu *****/
 /* Time-consuming nightmare my foot. I can do these things in my sleep now. (Unless you want super old browser compatability, in which case I'd just toss in a JS shim and call it a day.) */
 /* First-level navigation bar and items. */
+nav {
+    text-align: center;
+}
 ul#primary_nav_bar {
+    display: inline-block; /* Allows centring. */
     list-style-type: none; /* Shouldn't be a list. */
-    padding: 10px;
+    font-family: sans-serif;
+    padding: 0px;
     margin: 0px;
 }
 ul#primary_nav_bar > li {
     display: inline-block; /* Make items stack horizontally instead of vertically. */
-    padding: 0px 40px;
+    padding: 10px 40px;
+}
+ul#primary_nav_bar a {
+    text-decoration: none;
+}
+ul#primary_nav_bar a:link {
+    color: #ffffff;
+}
+ul#primary_nav_bar a:visited,
+ul#primary_nav_bar a:active {
+    color: #dfdfdf;
+}
+ul#primary_nav_bar a:visited:active {
+    color: #bfbfbf;
+}
+ul#primary_nav_bar > li:hover,
+ul#primary_nav_bar > li > ul > li:hover {
+    background-color: #3f3f3f;
 }
 
 /* Popup navigation menu. */
@@ -44,6 +66,8 @@ ul#primary_nav_bar > li > ul {
 ul#primary_nav_bar > li:hover > ul {
     z-index: 1000; /* Make sure the popup appears over everything. */
     position: absolute; /* Should go outside of element flow. */
+    margin-top: 10px; /* (same as ul#primary_nav_bar > li: padding-bottom) */
+    margin-left: -40px; /* (same as ul#primary_nav_bar > li: padding-left) */
     display: block;
     background-color: #afafaf;
     border: 2px solid black;
