@@ -147,24 +147,16 @@
         function loadPage(pageUrl) {
             var pageData = "";
 
-            xmlhttp = new XMLHttpRequest();
-            xmlhttp.onreadystatechange = function () {
-                if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    console.log(xmlhttp.responseText);
-                    replacePageContents(xmlhttp.responseText.replace(/(.+)\<main id="main"\>(.+)\<\/main\>(.+)/g, "$2"));
-                }
-            }
-            xmlhttp.open("GET", pageUrl, true);
-            xmlhttp.send();
-        }
-
-        function replacePageContents(contents) {
             var resizeFactor = .96;
             var resizeTarget = document.getElementById("main");
 
             resizeTarget.style.zoom = 1;
             resizeTarget.style.opacity = 1;
             resizeTarget.style.display = "inline-block";
+
+            xmlhttp = new XMLHttpRequest();
+            xmlhttp.open("GET", pageUrl, true);
+            xmlhttp.send();
 
             var timer = setInterval(function() {
                 resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
@@ -176,27 +168,34 @@
                 if (resizeTarget.style.zoom < .1) {
                     clearInterval(timer);
                     resizeTarget.innerHTML = "";
-                    resizeTarget.innerHTML = contents;
 
                     var timer2 = setInterval(function() {
-                        resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
-                        resizeTarget.style.opacity = resizeTarget.style.zoom;
-                        resizeTarget.style.marginLeft = (1 - resizeTarget.style.zoom) * 50 + "%";
-                        resizeTarget.style.marginRight = (1 - resizeTarget.style.zoom) * 50 + "%";
-                        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            resizeTarget.innerHTML = xmlhttp.responseText.replace(/(.+)\<main id="main"\>(.+)\<\/main\>(.+)/g, "$2");
 
-                        if (resizeTarget.style.zoom > .9) {
-                            clearInterval(timer);
+                            resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
+                            resizeTarget.style.opacity = resizeTarget.style.zoom;
+                            resizeTarget.style.marginLeft = (1 - resizeTarget.style.zoom) * 50 + "%";
+                            resizeTarget.style.marginRight = (1 - resizeTarget.style.zoom) * 50 + "%";
+                            resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
 
-                            resizeTarget.style.zoom = 1;
-                            resizeTarget.style.opacity = 1;
-                            resizeTarget.style.marginLeft = 0;
-                            resizeTarget.style.marginRight = 0;
-                            resizeTarget.style.display = "block";
+                            if (resizeTarget.style.zoom > .9) {
+                                clearInterval(timer);
+
+                                resizeTarget.style.zoom = 1;
+                                resizeTarget.style.opacity = 1;
+                                resizeTarget.style.marginLeft = 0;
+                                resizeTarget.style.marginRight = 0;
+                                resizeTarget.style.display = "block";
+                            }
                         }
                     }, 10);
                 }
             }, 10);
+        }
+
+        function replacePageContents(contents) {
+
         }
 
 
