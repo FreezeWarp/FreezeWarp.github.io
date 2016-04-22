@@ -76,6 +76,8 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
         pageTitle = cachedPages[pageUrl].pageTitle;
     }
     else {
+        content = false;
+
         xmlhttp = new XMLHttpRequest();
         xmlhttp.open("GET", pageUrl, true);
         xmlhttp.send();
@@ -86,13 +88,11 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
     resizeTarget.style.zoom = 1;
     resizeTarget.style.opacity = 1;
-    resizeTarget.style.display = "inline-block";
+//    resizeTarget.style.display = "inline-block";
 
     var timer = setInterval(function() {
         resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
         resizeTarget.style.opacity = resizeTarget.style.zoom;
-        resizeTarget.style.marginLeft = (1 - resizeTarget.style.zoom) * 50 + "%";
-        resizeTarget.style.marginRight = (1 - resizeTarget.style.zoom) * 50 + "%";
         resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
 
         if (resizeTarget.style.zoom < .1) {
@@ -113,8 +113,6 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                 var timer2 = setInterval(function() {
                     resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
                     resizeTarget.style.opacity = resizeTarget.style.zoom;
-                    resizeTarget.style.marginLeft = (1 - resizeTarget.style.zoom) * 50 + "%";
-                    resizeTarget.style.marginRight = (1 - resizeTarget.style.zoom) * 50 + "%";
                     resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
 
                     if (resizeTarget.style.zoom > .9) {
@@ -122,9 +120,6 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
                         resizeTarget.style.zoom = 1;
                         resizeTarget.style.opacity = 1;
-                        resizeTarget.style.marginLeft = 0;
-                        resizeTarget.style.marginRight = 0;
-                        resizeTarget.style.display = "block";
                         resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
                     }
                 }, 10);
@@ -148,7 +143,7 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                 return false;
             }
 
-            if (typeof content !== 'undefined') { console.log("content");
+            if (content) { console.log("content");
                 showNew(content, pageTitle);
             }
             else if (!xmlReady()) {

@@ -87,6 +87,14 @@ header#main_header {
 
 #mainHolder {
     padding: 20px;
+
+    /* Don't want it too close to the left on large monitors. */
+}
+
+main {
+    max-width: 980px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 footer#main_footer {
