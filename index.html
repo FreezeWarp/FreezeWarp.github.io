@@ -15,6 +15,7 @@
         body {
             padding: 0px; /* Get rid of the annoying default spacing on the body. */
             margin: 0px;
+            background-color: #afafaf; /* Will be used with header and footer. */
         }
 
         img {
@@ -69,17 +70,23 @@
 
 
 
-        /* Header and Footer */
+        /* Header, Main, and Footer */
         header#main_header {
             display: block;
-            background-color: #afafaf;
+            /*background-color: #afafaf;*/
             border-bottom: 2px solid black;
+        }
+
+        main#main {
+            padding: 20px;
+            background-color: #ffffff;
         }
 
         footer#main_footer {
             display: block;
-            background-color: #afafaf;
+            /*background-color: #afafaf;*/
             border-top: 2px solid black;
+            text-align: center;
             bottom: 0px;
         }
 
@@ -96,9 +103,6 @@
             border-radius: .2em;
         }
 
-        main#main {
-            padding: 20px;
-        }
         aside#headshot {
             float: left;
             margin-right: 20px;
