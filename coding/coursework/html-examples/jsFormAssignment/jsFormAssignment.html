@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+	<!--
+	   - Needless to say, this is _far_ messier than anything I would write professionally. 
+	   - That said, it's also the first time I've tried implementing things in certain ways, and while I think a couple of these fail, some work. 
+	   - For instance, the data-* attributes on the select are a pretty decent way of keeping previously-loaded data. I would probably stick with JSON, but it's a cool possibility that could perhaps keep the Javascript variable space a little bit cleaner if needed. -->
+	<head>
+		<meta charset="UTF-8" />
+		<script type="text/javascript" src="jsFormAssignment.js"></script>
+		<title>Purchase Thingy</title>	
+		<style>
+		#purchase input:required {
+			border: 2px solid red;
+		}
+		#purchase input:focus:invalid { /* Without focus, there was really no point to the red border, since they are all invalid by default. */
+			border: 2px solid yellow;
+		}
+		#purchase input:valid {
+			border: none;
+		}
+		
+		fieldset {
+			margin-bottom: 10px;
+		}
+		
+		fieldset > legend > input:checked {
+			border: 2px solid black;
+		}
+		</style>
+	</head>
+	<body id="body">
+		<form id="addProduct">
+			<select id="productsList" name="product">
+				<option
+					value="skittles"
+					data-price="1.99"
+					data-types="Original,Tropical,Wild Berry,Sour"
+					data-type-bonuses="0,1">
+					Skittles
+				</option>
+					
+				<option
+					value="snickers"
+					data-price="9.02"
+					data-types="Regular,King,Special"
+					data-type-bonuses="0,1,10">
+					Snickers
+				</option>
+					
+				<option
+					value="mikeikes"
+					data-price="9.01"
+					data-types="Original,Berry Blast,Tropical Typhoon,Lemonade Blends"
+					data-type-bonuses="0,1.5">
+					Mike & Ikes
+				</option>
+					
+				<option value="kitkats"
+					data-price="1.99"
+					data-types="White Chocolate,Milk Chocolate,Dark Chocolate,Mint"
+					data-type-bonuses="0,0,0,.5">
+					Kit Kat
+				</option>
+					
+				<option value="gumballs"
+					data-price="0"
+					data-color
+					data-color-bonus=".10"
+					data-color-default="#ffffff"
+					data-range-name="Radius (mm)"
+					data-range-mult=".00025"
+					data-range-mult-degree="3"
+					data-range-step="1"
+					data-range-min="5"
+					data-range-max="50"
+					data-range-default="10"
+					data-types="Hollow-Center,Solid-Center,Chewey-Center"
+					data-type-bonuses="0,.5,1">
+					Gumball
+				</option>
+				
+				<option
+					value="bgh"
+					data-price="100"
+					data-color
+					data-color-bonus="10"
+					data-color-default="#3f0000">
+					Bovine Growth Hormone
+				</option>
+			</select>
+			<button type="button" onclick="addItemSelected()">Add Item</button><br /><br />
+		</form>
+		
+		<form id="products">
+			<br />Total: <input type="text" id="total" disabled />
+			<button type="button" onclick="document.getElementById('addProduct').style.display = 'none'; document.getElementById('products').style.display = 'none'; document.getElementById('purchase').style.display = 'block';">Make Purchase</button>
+		</form>
+		
+		<form id="purchase" method="post" style="display: none" action="https://domfu.com/cgi-bin/ics/echo">
+			<table>
+				<tr><td><label for="name">Name: </label></td><td><input type="text" id="name" name="name" required pattern="[a-zA-Z\-\' ]{2,}" /></td></tr>
+				<tr><td><label for="address">Address: </label></td><td><input type="text" id="address" name="address" required /></td></tr>
+				<tr><td><label for="city">City: </label></td><td><input type="text" id="city" name="city" required pattern="[a-zA-Z\-\' ]{2,}" /></td></tr>
+				<tr><td><label for="state">State: </label></td><td><input type="text" id="state" name="state" required pattern="[a-zA-Z\-\' ]{2,}" /></td></tr>
+				<tr><td><label for="zip">Zipcode: </label></td><td><input type="text" id="zip" name="zip" required pattern="\d{5}([\-\.\+ ]{0,1}\d{4}){0,1}" /></td></tr>
+				<tr><td><label for="tel">Telephone: </label></td><td><input type="tel" id="tel" name="telephone" pattern="(\(\d{3}\)( |)|\d{3}( |-|\.|)|)\d{3}( |-|\.|)\d{4}" /></td></tr>
+				<tr><td><label for="creditcard">Credit Card #: </label></td><td><input type="text" id="creditcard" name="creditcard" pattern="(\d{4} {0,1}){4}" required /></td></tr>
+				<tr><td><label for="ccv">CCV: </label></td><td><input type="number" id="ccv" name="ccv" style="border: 2px solid red" onblur="if (this.style.border == '2px solid yellow') this.style.border = '2px solid red'" onfocus="if (this.style.border == '2px solid red') this.style.border = '2px solid yellow'" onkeypress="return event.charCode !== '.'.charCodeAt(0)" onkeyup="if (this.value % 16 === 0 && this.value > 0 && this.value < 1000) this.style.border = 'none'; else this.style.border = '2px solid yellow';" required /></td></tr>
+				<tr><td>Total Price:</td><td><input type="text" id="total2" name="total" readonly></td></tr>
+			</table><br />
+			
+			<input type="submit" value="Complete Purchase" />
+		</form>
+	</body>
+</html>

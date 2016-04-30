@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>DOM 1</title>
+
+<script type="text/javascript">
+//<![CDATA[
+
+
+function alertExperiment( object )
+{
+	alert( object ); //what is that "this" variable I passed to this function? lets alert it and see...
+	
+	alert( object.getAttribute("value") ); // how to read HTML attributes from a tag object.  Yes, to change them you use setAttribute().
+	
+	console.log( object ); // Use firebug (or other browser's console) to print out the object for closer inspection; also much less annoying than using alerts.
+	
+}
+
+/* Heavily modified version of https://davidwalsh.name/change-text-size-onclick-with-javascript */
+function resizeSomething(object, property, multiplier) {
+  if (!(property in object) || object[property] == "") {
+    object[property] = "1.0em";
+  }
+  object[property] = parseFloat(object[property]) + (multiplier) + "em";
+}
+
+
+// Internal Javascript - you may make this an external .js file if you wish.
+
+// notice the missing <!-- javascript html comment hack. If you don't, you may find it online everywhere. SCRIPT tags don't need the html comment hack; it only existed for the mid 90s but persists today out of habit and ignorance.
+
+// What is the CDATA thing at the top of this javascript content?? 
+// 	Well you could google that... it's an XML comment hack ...of sorts... 
+// 	Being XHTML, this is XML and to shut up the validator complaining about javascript, which could break the XML laws, the CDATA tells the XML program (validator) to ignore everything in the CDATA comment.
+// 	If you use external CSS and external JS files you never run into bogus errors from mixing file formats inside the xHTML. In HTML, you don't need to do any of this (but there is an XML form of HTML5 and XML's powers will get more pros using XHTML5 in the future.)
+
+// BTW, delete my comments - you don't need them.
+
+
+//]]>
+</script>
+
+<style media="all" type="text/css">
+
+button , .fakebutton
+{
+	background-color: #FF0000;
+	border: 2px double #000000;
+	font-weight: bold;
+	padding: 2px;
+	margin: 8px;
+	display: inline-block;
+}
+
+#green
+{
+	background-color:green;
+}
+
+</style>
+
+</head>
+<body>
+
+
+<button onclick="alertExperiment( this )" type="button" name="does not matter; it is only for servers" value="Hello World!"> Alert Experiment 1 </button>
+
+<div onclick="alert('Hello')" class="fakebutton"> Alert Experiment 2 </div>
+
+<div onclick="alert(this.getAttribute('class'))" class="fakebutton"> Read Tag Attribute Experiment </div>
+
+<button onclick="alert(document.getElementById('textOutput').value)" type="button"> Read Form Value Experiment 1 </button>
+
+<button onclick="document.getElementById('textOutput').value = prompt('New value?')" type="button"> Prompt Experiment 1 </button>
+
+<br />
+<button onclick="document.getElementsByTagName('body')[0].style.fontSize = '1.2em'" type="button"> Size Experiment 1 </button>
+
+<button onclick="resizeSomething(document.getElementsByTagName('body')[0].style, 'fontSize', .2)" type="button"> Size Experiment 2 Bigger </button>
+
+<button onclick="resizeSomething(document.getElementsByTagName('body')[0].style, 'fontSize', .2)" type="button"> Size Experiment 3 +</button>
+<button onclick="resizeSomething(document.getElementsByTagName('body')[0].style, 'fontSize', -.2)" type="button"> Size Experiment 3 -</button>
+
+<br />
+<button onclick="document.getElementById('green').style.display = 'none'" type="button"> Toggle Experiment 1 </button>
+
+<button onclick="document.getElementById('green').style.display = (document.getElementById('green').style.display == 'none' ? 'block' : 'none')" type="button"> Toggle Experiment 2 </button>
+
+<button onclick="document.getElementById('green').style.display = (document.getElementById('green').style.display == 'none' ? 'block' : 'none'); this.innerHTML = (this.innerHTML != 'Show' ? 'Show' : 'Hide')" type="button"> Toggle Experiment 3 </button>
+
+<br />
+<button onclick="document.getElementById('green').style.backgroundColor = 'yellow'" type="button"> Cycle Experiment 1 </button>
+
+<button onclick="document.getElementById('green').style.backgroundColor = (document.getElementById('green').style.backgroundColor == 'yellow' ? 'green' : 'yellow')" type="button"> Cycle Experiment 2 </button>
+
+<button onclick="setInterval(function() { document.getElementById('green').style.backgroundColor = (document.getElementById('green').style.backgroundColor == 'yellow' ? 'green' : 'yellow') }, 2000);" type="button"> Cycle Experiment 3 </button>
+
+<br />
+<button onmouseover="document.getElementsByTagName('body')[0].style.backgroundColor = 'blue';" onmouseout="document.getElementsByTagName('body')[0].style.backgroundColor = 'white';" type="button"> Hover Experiment 1</button>
+
+<br />
+<textarea id="textOutput" cols="80" rows="4">form text field value</textarea>
+
+<p id="green">
+	Forms do not have to send anything, you can use a form tag simply to shut up the older validators about the form-related html tags. The <b>document</b> object contains an array of <b>form</b> objects, you can either get them by number document.forms[0] or, you can get them by the form's name (name attribute of the form tag) document.formname. In the form object, there is another array called  <b>elements</b> which contains all form-related html tags within that form (form.elements[]). So, you could use a form tag and it's name to read forms.  For example: <samp>document.myForm.myName</samp> could be used if you had a form tag with a name; <strong>however</strong>, this is <strong>NOT</strong> good practice! It is grandfathered in and nobody liked including support for it and all the issues it causes for browsers and developers.  If you need to get a tag, you must get the object by OTHER methods and never by it's form name (aka server name.)
+</p>
+
+</body>
+</html>
