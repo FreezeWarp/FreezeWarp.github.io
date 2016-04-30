@@ -168,15 +168,20 @@ header#main_header {
 }
 
 #mainHolder {
-    padding: 20px;
-
-    /* Don't want it too close to the left on large monitors. */
 }
 
 main {
+    /* Don't want it too close to the left on large monitors. */
+    padding: 20px;
+
+    /* Horizontally long content is impossible to read. */
     max-width: 980px;
+
+    /* Center */
     margin-left: auto;
     margin-right: auto;
+
+    /* For animation */
     position: relative;
 }
 

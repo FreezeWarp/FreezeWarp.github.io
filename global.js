@@ -1,7 +1,20 @@
+/**
+ * Wow, I have seriously not done most of the stuff in here before:
+ * I've always used jQuery animations, so I've never done anything with pure Javascript, but I'm pretty happy with what I came up with.
+ * Prototypes! I've never done prototypes before. They are... actually really awesome. I know other languages have started adding something similar, but nowhere near as clean as with JS.
+ * addEventListener is weird, and I might not be using it right. I have used something similar in jQuery, which is a lot less weird.
+ */
+
+
+
+
+/* Global variables */
 var cachedPages = {};
 
-/* Prototype extensions.
- * Fun-fact! This is the first time I've done a prototype extension. It's shockingly simple, isn't it? */
+
+
+
+/* Prototype extensions. */
 Number.prototype.zeroPad = function(num) {
     var asString = this.valueOf().toString();
     var neededZeros = num - asString.length;
@@ -15,60 +28,18 @@ Number.prototype.zeroPad = function(num) {
 String.prototype.titleFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
 String.prototype.mainFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
 
+
+
+
+/* Set theme function */
 function setTheme(themeId) {
-    if ([1,2,3].indexOf(Number(themeId)) === -1) themeId = 1;
+    if ([1,2].indexOf(Number(themeId)) === -1) themeId = 1;
 
     localStorage.setItem('themeId', themeId);
     document.getElementById('themedCSS').setAttribute('href', '/theme' + themeId + '.css');
 }
 
-/* Stuff to run when the page loads (currently just the clock nonsense.) */
-window.onload = function() {
-    cachedPages[window.location.pathname] = {
-        'content' : document.body.innerHTML.mainFromHTML(),
-        'pageTitle' : document.head.innerHTML.titleFromHTML()
-    }
 
-
-    setTheme(localStorage.getItem('themeId'));
-
-
-    var timeElement = document.createElement('div');
-    timeElement.setAttribute('id', 'dateContainer');
-    document.getElementById('main_footer').appendChild(timeElement);
-
-    function refreshClock() {
-        var date = new Date();
-        document.getElementById('dateContainer').innerHTML = date.getHours().zeroPad(2) + ':' + date.getMinutes().zeroPad(2) + ':' + date.getSeconds().zeroPad(2);
-    }
-
-    refreshClock();
-    setInterval(refreshClock, 1000);
-};
-
-
-/* Use loadPage for history navigation. */
-window.onpopstate = function(e) {
-    if (!document.location.href.match(/\#/)) // Don't run when the hash changes.
-        loadPage(document.location, false, false);
-};
-
-
-/* Use loadPage when a link is clicked. */
-/* I've also never used any of these (always used jQuery). It actually works rather well, doesn't it? */
-document.addEventListener('click', function(e) {
-    var target = e.target;
-
-    while(target.nodeName !== "A" && target !== null) {
-        target = target.parentNode;
-    }
-
-    console.log(target.getAttribute('href'));
-    if (!target.getAttribute('href').match(/(\/\/)/) && target.getAttribute('href').match(/(\.html|\/)$/)) { // Pretty lazy set, but it works.
-        e.preventDefault();
-        loadPage(target.getAttribute('href'))
-    }
-}, false); // Only works in newerish browsers. Old IE uses attachEvent instead.
 
 
 /* Page transition function
@@ -178,3 +149,56 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
     return false;
 }
+
+
+
+
+/* Stuff to run when the page loads (currently just the clock nonsense and theme checking) */
+window.onload = function() {
+    cachedPages[window.location.pathname] = {
+        'content' : document.body.innerHTML.mainFromHTML(),
+        'pageTitle' : document.head.innerHTML.titleFromHTML()
+    }
+
+
+    setTheme(localStorage.getItem('themeId'));
+
+
+    var timeElement = document.createElement('div');
+    timeElement.setAttribute('id', 'dateContainer');
+    document.getElementById('main_footer').appendChild(timeElement);
+
+    function refreshClock() {
+        var date = new Date();
+        document.getElementById('dateContainer').innerHTML = date.getHours().zeroPad(2) + ':' + date.getMinutes().zeroPad(2) + ':' + date.getSeconds().zeroPad(2);
+    }
+
+    refreshClock();
+    setInterval(refreshClock, 1000);
+};
+
+
+
+
+/* Use loadPage for history navigation. */
+window.onpopstate = function(e) {
+    if (!document.location.href.match(/\#/)) // Don't run when the hash changes.
+        loadPage(document.location, false, false);
+};
+
+/* Use loadPage when a link is clicked. */
+/* I've also never used any of these (always used jQuery). It actually works rather well, doesn't it? */
+document.addEventListener('click', function(e) {
+    var target = e.target;
+    window.y=e;
+
+    while(target.nodeName !== "A" && target !== null) {
+        target = target.parentNode;
+    }
+
+    console.log(target.getAttribute('href'));
+    if (!target.getAttribute('href').match(/(\/\/)/) && target.getAttribute('href').match(/(\.html|\/)$/)) { // Pretty lazy set, but it works.
+        e.preventDefault();
+        loadPage(target.getAttribute('href'))
+    }
+}, false); // Only works in newerish browsers. Old IE uses attachEvent instead.
