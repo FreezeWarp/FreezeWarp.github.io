@@ -80,19 +80,19 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
         if (resizeTarget.style.opacity < .1) {
             clearInterval(timer);
-            
+
             resizeTarget.innerHTML = "";
 
             function showNew(responseText, pageTitle) {
-                resizeTarget.innerHTML = responseText;
-                document.title = pageTitle;
-
                 if (history) {
                     window.history.pushState({
                         "html": responseText,
                         "pageTitle": pageTitle
                     }, pageTitle, pageUrl);
                 }
+
+                resizeTarget.innerHTML = responseText;
+                document.title = pageTitle;
 
                 resizeTarget.style.left = 100 + "%";
 
