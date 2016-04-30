@@ -115,17 +115,19 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                     }, pageTitle, pageUrl);
                 }
 
+                resizeTarget.style.zoom = 1;
+                resizeTarget.style.width = 100 + "%";
                 var timer2 = setInterval(function() {
-                    resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
-                    resizeTarget.style.opacity = resizeTarget.style.zoom;
-                    resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
+//                    resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
+                    resizeTarget.style.opacity = (2 - resizeFactor) * resizeTarget.style.opacity;
+//                    resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
 
-                    if (resizeTarget.style.zoom > .9) {
+                    if (resizeTarget.style.opacity > .9) {
                         clearInterval(timer2);
 
-                        resizeTarget.style.zoom = 1;
+//                        resizeTarget.style.zoom = 1;
                         resizeTarget.style.opacity = 1;
-                        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
+//                        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
                     }
                 }, 10);
             }
