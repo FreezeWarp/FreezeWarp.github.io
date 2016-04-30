@@ -65,6 +65,7 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
     var resizeFactor = .96;
     var resizeTarget = document.getElementById("main");
+    resizeTarget.parentNode.style.height = resizeTarget.scrollHeight + 'px';
 
 //    resizeTarget.style.zoom = 1;
     resizeTarget.style.opacity = 1;
@@ -79,9 +80,7 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
         if (resizeTarget.style.opacity < .1) {
             clearInterval(timer);
-
-            resizeTarget.parentNode.style.height = resizeTarget.scrollHeight + 'px';
-
+            
             resizeTarget.innerHTML = "";
 
             function showNew(responseText, pageTitle) {
@@ -95,29 +94,29 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                     }, pageTitle, pageUrl);
                 }
 
-                /*                resizeTarget.style.zoom = 1;
-                 resizeTarget.style.width = 100 + "%";*/
                 resizeTarget.style.left = 100 + "%";
+
                 var timer2 = setInterval(function() {
                     resizeTarget.style.opacity = (2 - resizeFactor) * resizeTarget.style.opacity;
                     resizeTarget.style.left = (1 - resizeTarget.style.opacity) * 100 + "%";
 
-                    // ...Second try, eff yeah! (Seriously, this is probably the weirdest line of code I've written in a long while.)
-                    resizeTarget.parentNode.style.height = parseFloat(resizeTarget.parentNode.style.height) + (2 - resizeFactor) * (resizeTarget.scrollHeight - parseFloat(resizeTarget.parentNode.style.height)) + 'px';
-
-//                    resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
-//                    resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
-
-                    if (resizeTarget.style.opacity > .95) {
+                    if (resizeTarget.style.opacity > .9999) {
                         clearInterval(timer2);
 
-//                        resizeTarget.parentNode.style.height = resizeTarget.scrollHeight + 'px';
                         resizeTarget.style.opacity = 1;
                         resizeTarget.style.right = "0%";
-//                        resizeTarget.style.zoom = 1;
-//                        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
                     }
                 }, 10);
+
+                var timer3 = setInterval(function() {
+                    // ...Second try, eff yeah! (Seriously, this is probably the weirdest line of code I've written in a long while.)
+                    resizeTarget.parentNode.style.height = parseFloat(resizeTarget.parentNode.style.height) + (1 - resizeFactor) * (resizeTarget.scrollHeight - parseFloat(resizeTarget.parentNode.style.height)) + 'px';
+
+                    if (Math.abs(resizeTarget.scrollHeight - parseFloat(resizeTarget.parentNode.style.height)) < 2) {
+                        clearInterval(timer3);
+                        resizeTarget.parentNode.style.height = resizeTarget.scrollHeight + 'px';
+                    }
+                }, 5);
             }
 
             function xmlReady() {
