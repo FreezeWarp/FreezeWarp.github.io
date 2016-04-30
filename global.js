@@ -91,16 +91,17 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
     var resizeFactor = .96;
     var resizeTarget = document.getElementById("main");
 
-    resizeTarget.style.zoom = 1;
+//    resizeTarget.style.zoom = 1;
     resizeTarget.style.opacity = 1;
-//    resizeTarget.style.display = "inline-block";
 
     var timer = setInterval(function() {
+        resizeTarget.style.opacity = resizeFactor * resizeTarget.style.opacity;
+        resizeTarget.style.left = (resizeTarget.style.opacity - 1) * 100 + "%";
+        /*
         resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
-        resizeTarget.style.opacity = resizeTarget.style.zoom;
-        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
+        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%"; */
 
-        if (resizeTarget.style.zoom < .1) {
+        if (resizeTarget.style.opacity < .1) {
             clearInterval(timer);
             resizeTarget.innerHTML = "";
 
@@ -115,18 +116,23 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                     }, pageTitle, pageUrl);
                 }
 
-                resizeTarget.style.zoom = 1;
-                resizeTarget.style.width = 100 + "%";
+/*                resizeTarget.style.zoom = 1;
+                resizeTarget.style.width = 100 + "%";*/
+                resizeTarget.style.left = 100 + "%";
                 var timer2 = setInterval(function() {
-//                    resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
                     resizeTarget.style.opacity = (2 - resizeFactor) * resizeTarget.style.opacity;
+                    resizeTarget.style.left = (1 - resizeTarget.style.opacity) * 100 + "%";
+
+
+//                    resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
 //                    resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
 
-                    if (resizeTarget.style.opacity > .9) {
+                    if (resizeTarget.style.opacity > .95) {
                         clearInterval(timer2);
 
-//                        resizeTarget.style.zoom = 1;
                         resizeTarget.style.opacity = 1;
+                        resizeTarget.style.right = "0%";
+//                        resizeTarget.style.zoom = 1;
 //                        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
                     }
                 }, 10);

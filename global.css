@@ -3,6 +3,7 @@
     box-sizing: border-box; /* Not really needed here, but makes the JS pageload animation a lot easier. If not supported, that will just be slightly unaligned. */
 }
 html, body {
+    overflow-x: hidden;
     height: 100%; /* Makes the footer always appear at the bottom of the page, which is nice. */
 }
 body {
@@ -176,6 +177,7 @@ main {
     max-width: 980px;
     margin-left: auto;
     margin-right: auto;
+    position: relative;
 }
 
 footer#main_footer {
