@@ -16,7 +16,7 @@ String.prototype.titleFromHTML = function() { return this.replace(/([\s\S]*)\<ma
 String.prototype.mainFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
 
 function setTheme(themeId) {
-    if ([1,2].indexOf(Number(themeId)) === -1) themeId = 1;
+    if ([1,2,3].indexOf(Number(themeId)) === -1) themeId = 1;
 
     localStorage.setItem('themeId', themeId);
     document.getElementById('themedCSS').setAttribute('href', '/theme' + themeId + '.css');
