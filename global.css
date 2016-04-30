@@ -203,15 +203,15 @@ ul.materialList {
 ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
     text-decoration: none;
 }
-
-ul.materialList li {
+ul.materialList > li, ul.materialList > a > li {
     border-radius: .5em;
     margin: 0px 10px 20px 10px;
     padding: 10px;
 }
-ul.materialList li:hover {
+ul.materialList > a:hover > li {
     transition: all .3s ease;
 }
+
 
 ul.breadcrumbs {
     list-style-type: none;

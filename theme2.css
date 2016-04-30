@@ -26,14 +26,13 @@ iframe, ul.materialList li {
 ul.materialList li:hover, ul#primary_nav_bar > li:hover > ul, .gallery img, .card {
     animation: boxGlow 2s infinite;
 }
-
 ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
      color: #ffffff;
 }
-ul.materialList li, .card {
+ul.materialList > li, ul.materialList > a > li, .card {
     background-color: #000000;
 }
-ul.materialList li:hover {
+ul.materialList > a:hover > li {
     background-color: #202020;
 }
 
