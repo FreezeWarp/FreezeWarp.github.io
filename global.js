@@ -71,22 +71,26 @@ document.addEventListener('click', function(e) {
 }, false); // Only works in newerish browsers. Old IE uses attachEvent instead.
 
 
+/* Page transition function
 /* This is a fun one. Loads pageUrl (can be in any format that is accepted by xmlHttpRequest), extracts the stuff in #main, and then replaces the existing #main with the new stuff.
- * It also runs a fadeout/zoomout animation to hide the existing content (run simultaneously with background page load) and, once the new page is available and the the fadeout complete) runs a fadein/zoomin animation with the new content. */
+ * The good stuff, and the main reason for including it, is the page transition. Different options are available, though redrawing iframes is super difficult, so you want to try to be fairly light with the animation. After a bit of playing, I've implemented three effects:
+ * The old page fades out and slides out to the left (like a book)
+ * The new page fades in and slides in from the right (like a book)
+ * The body's height adjusts slowly in order to make this transition less jarring. */
 function loadPage(pageUrl, history) { console.log(pageUrl);
     var history = typeof history === 'undefined' || history;
 
-    if (pageUrl in cachedPages) {
-        content = cachedPages[pageUrl].content;
-        pageTitle = cachedPages[pageUrl].pageTitle;
-    }
-    else {
-        content = false;
+    /*    if (pageUrl in cachedPages) {
+     content = cachedPages[pageUrl].content;
+     pageTitle = cachedPages[pageUrl].pageTitle;
+     }
+     else {*/
+    content = false;
 
-        xmlhttp = new XMLHttpRequest();
-        xmlhttp.open("GET", pageUrl, true);
-        xmlhttp.send();
-    }
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.open("GET", pageUrl, true);
+    xmlhttp.send();
+//    }
 
     var resizeFactor = .96;
     var resizeTarget = document.getElementById("main");
@@ -97,12 +101,16 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
     var timer = setInterval(function() {
         resizeTarget.style.opacity = resizeFactor * resizeTarget.style.opacity;
         resizeTarget.style.left = (resizeTarget.style.opacity - 1) * 100 + "%";
+
         /*
-        resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
-        resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%"; */
+         resizeTarget.style.zoom = resizeFactor * resizeTarget.style.zoom;
+         resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%"; */
 
         if (resizeTarget.style.opacity < .1) {
             clearInterval(timer);
+
+            resizeTarget.parentNode.style.height = resizeTarget.scrollHeight + 'px';
+
             resizeTarget.innerHTML = "";
 
             function showNew(responseText, pageTitle) {
@@ -116,13 +124,15 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                     }, pageTitle, pageUrl);
                 }
 
-/*                resizeTarget.style.zoom = 1;
-                resizeTarget.style.width = 100 + "%";*/
+                /*                resizeTarget.style.zoom = 1;
+                 resizeTarget.style.width = 100 + "%";*/
                 resizeTarget.style.left = 100 + "%";
                 var timer2 = setInterval(function() {
                     resizeTarget.style.opacity = (2 - resizeFactor) * resizeTarget.style.opacity;
                     resizeTarget.style.left = (1 - resizeTarget.style.opacity) * 100 + "%";
 
+                    // ...Second try, eff yeah! (Seriously, this is probably the weirdest line of code I've written in a long while.)
+                    resizeTarget.parentNode.style.height = parseFloat(resizeTarget.parentNode.style.height) + (2 - resizeFactor) * (resizeTarget.scrollHeight - parseFloat(resizeTarget.parentNode.style.height)) + 'px';
 
 //                    resizeTarget.style.zoom = (2 - resizeFactor) * resizeTarget.style.zoom;
 //                    resizeTarget.style.width = resizeTarget.style.zoom * 100 + "%";
@@ -130,6 +140,7 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                     if (resizeTarget.style.opacity > .95) {
                         clearInterval(timer2);
 
+//                        resizeTarget.parentNode.style.height = resizeTarget.scrollHeight + 'px';
                         resizeTarget.style.opacity = 1;
                         resizeTarget.style.right = "0%";
 //                        resizeTarget.style.zoom = 1;
