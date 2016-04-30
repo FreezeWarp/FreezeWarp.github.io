@@ -11,7 +11,8 @@
     <!-- Notes about this site in its current incarnation:
       -- Keyboard navigation is a wonderful breeze. I didn't even do anything, but try navigating the menu with a keyboard and, to me at lesat, it's quite intuitive: highlight an item from the main menu bar, hit enter to bring up the subpage with a description of each item, and then tab over to those items. It's a different flow than the mouse navigation, but it works flawlessly.
       -- Screen readers should also be pretty happy. The menu is of-course a list, something screen readers are pretty good at working with .
-      -- IE support is about as rough as you'd expect. In IE10 and IE11, everything important works, though the transition doesn't zoom, -->
+      -- IE support is about as rough as you'd expect. In IE10 and IE11, everything important works, though the transition doesn't zoom,
+      -- Some pages use <a><li>...</li></a> which, of-course, isn't really "allowed," as you're not supposed to anchor a block element. However, I firmly disagree with this limitation -- block elements, in an age of touchscreen devices, anchors frequently get placed on block elements, and it is perfectly natural for HTML to support it. At any rate, specs like W3C should always be considered (usually very good) recommendations, not hard rules, anyway. -->
 </head>
 <body>
 <header id="main_header">
@@ -27,6 +28,7 @@
                     <a href="/coding/scw.html"><li>SeanCooperWriter.com (Wordpress, CSS)</li></a>
                     <a href="/coding/blackjack.html"><li>Console Blackjack (C)</li></a>
                     <a href="/coding/c-tutor.html"><li>C Practice Tests (C, Tutoring)</li></a>
+                    <a href="/coding/coursework/html.html"><li>HTML Coursework (HTML)</li></a>
                     <a href="/coding/coursework/c.html"><li>C Coursework (C)</li></a>
                     <a href="/coding/coursework/python.html"><li>Python Coursework (C)</li></a>
                     <a href="/coding/coursework/c++.html"><li>C++ Coursework (C++)</li></a>
