@@ -36,6 +36,19 @@ pre {
     display: block;
 }
 
+.col12 {
+    width: 50%;
+    float: left;
+    margin-left: -10px;
+    margin-right: 10px;
+}
+.col22 {
+    width: 50%;
+    float: right;
+    margin-right: -10px;
+    margin-left: 10px;
+}
+
 .cols2 {
     -webkit-column-count: 2;
     -moz-column-count: 2;
