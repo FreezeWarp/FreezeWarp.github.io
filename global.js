@@ -161,19 +161,6 @@ window.onload = function() {
 
 
     setTheme(localStorage.getItem('themeId'));
-
-
-    var timeElement = document.createElement('div');
-    timeElement.setAttribute('id', 'dateContainer');
-    document.getElementById('main_footer').appendChild(timeElement);
-
-    function refreshClock() {
-        var date = new Date();
-        document.getElementById('dateContainer').innerHTML = date.getHours().zeroPad(2) + ':' + date.getMinutes().zeroPad(2) + ':' + date.getSeconds().zeroPad(2);
-    }
-
-    refreshClock();
-    setInterval(refreshClock, 1000);
 };
 
 
