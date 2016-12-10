@@ -1,9 +1,9 @@
+/***** Globals ******/
 @charset "UTF-8";
 * {
     box-sizing: border-box; /* Not really needed here, but makes the JS pageload animation a lot easier. If not supported, that will just be slightly unaligned. */
 }
 html, body {
-    overflow-x: hidden;
     height: 100%; /* Makes the footer always appear at the bottom of the page, which is nice. */
 }
 body {
@@ -11,8 +11,15 @@ body {
     margin: 0px;
 }
 
+
+
+/***** Element Overrides *****/
 img {
     max-width: 100%; /* Images shouldn't cause overflows. */
+}
+
+input[type=text], input[type=email], input[type=tel], textarea {
+    width: 100%;
 }
 
 iframe {
@@ -32,6 +39,9 @@ pre {
     white-space: pre-wrap;
 }
 
+
+
+/***** Layout Classes *****/
 .clear {
     clear: both;
     display: block;
@@ -67,6 +77,9 @@ pre {
     column-break-inside : avoid;
 }
 
+
+
+/***** Description Classes *****/
 .highlights, .download {
     border-radius: .25em;
     padding: 0px 15px;
@@ -79,11 +92,14 @@ pre {
     margin-left: 30px;
     float: right;
 }
-.gallery img {
-    margin: 20px;
-}
+
 .gallery {
     text-align: center;
+}
+.gallery img {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+    max-width: 95%;
 }
 
 .paper {
@@ -91,15 +107,81 @@ pre {
     text-indent: 1in;
 }
 
+iframe.gDocs {
+    height: 1000px; /* An imperfect solution. Eventually, we'll want to have the copy the Google Doc into the HTML itself, instead of using an iframe, but for now, this works best. */
+}
+
+/* Creates a list of elements that are displayed as large blocks.
+ * Exactly how this is implemented should be able to change -- the key is, each <li> should be its own block, in some way. */
+ul.materialList {
+     list-style-type: none;
+     padding: 0px;
+ }
+ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
+    text-decoration: none;
+}
+ul.materialList > li, ul.materialList > a > li {
+    border-radius: .5em;
+    margin: 0px 10px 20px 10px;
+    padding: 10px;
+}
+ul.materialList > a:hover > li {
+    transition: all .3s ease;
+}
+
+ul.breadcrumbs {
+    list-style-type: none;
+}
+ul.breadcrumbs li {
+    display: inline;
+}
+ul.breadcrumbs li:not(:first-child)::before {
+    content: " \BB "
+}
+
+
+
+/***** Header/Main/Footer *****/
+header#main_header {
+    display: block;
+    border-bottom: 3px solid;
+}
+
+#mainHolder {
+}
+
+main {
+    /* Don't want it too close to the left on large monitors. */
+    padding: 20px;
+
+    /* Horizontally long content is impossible to read. */
+    max-width: 980px;
+
+    /* Center */
+    margin-left: auto;
+    margin-right: auto;
+
+    /* For animation */
+    position: relative;
+}
+
+footer#main_footer {
+    display: block;
+    border-top: 2px solid;
+    text-align: center;
+    bottom: 0px;
+    font-weight: bold;
+    padding: 5px 0px;
+    font-family: sans-serif;
+}
+
+
+
 /***** Navigation Menu *****/
-/* Time-consuming nightmare my foot. I can do these things in my sleep now. (Unless you want super old browser compatability, in which case I'd just toss in a JS shim and call it a day.) */
+/* (TODO: Browser comparability.) */
 /* First-level navigation bar and items. */
 nav {
     text-align: center;
-}
-
-li#skipToMain {
-    display: none !important;
 }
 
 ul#primary_nav_bar {
@@ -114,6 +196,9 @@ ul#primary_nav_bar > li {
     font-size: 11pt;
     display: inline-block; /* Make items stack horizontally instead of vertically. */
     padding: 15px 40px;
+}
+ul#primary_nav_bar > li#skipToMain {
+    display: none;
 }
 ul#primary_nav_bar a {
     text-decoration: none;
@@ -161,69 +246,6 @@ ul#primary_nav_bar > li > ul > a:last-child > li { /* Remove the bottom border o
 
 
 
-/* Header, Main, and Footer */
-header#main_header {
-    display: block;
-    border-bottom: 3px solid;
-}
-
-#mainHolder {
-}
-
-main {
-    /* Don't want it too close to the left on large monitors. */
-    padding: 20px;
-
-    /* Horizontally long content is impossible to read. */
-    max-width: 980px;
-
-    /* Center */
-    margin-left: auto;
-    margin-right: auto;
-
-    /* For animation */
-    position: relative;
-}
-
-footer#main_footer {
-    display: block;
-    border-top: 2px solid;
-    text-align: center;
-    bottom: 0px;
-    font-weight: bold;
-    padding: 5px 0px;
-    font-family: sans-serif;
-}
-
-
-ul.materialList {
-    list-style-type: none;
-    padding: 0px;
-}
-ul.materialList a, ul.materialList a:link, ul.materialList a:active, ul.materialList a:hover, ul.materialList a:visited {
-    text-decoration: none;
-}
-ul.materialList > li, ul.materialList > a > li {
-    border-radius: .5em;
-    margin: 0px 10px 20px 10px;
-    padding: 10px;
-}
-ul.materialList > a:hover > li {
-    transition: all .3s ease;
-}
-
-
-ul.breadcrumbs {
-    list-style-type: none;
-}
-ul.breadcrumbs li {
-    display: inline;
-}
-ul.breadcrumbs li:not(:first-child)::before {
-    content: " » "
-}
-
-
 /* Other stuff. */
 #myName {
     position: relative;
@@ -264,8 +286,8 @@ aside#headshot #name {
 
 
 
-/* Nice thing is, this general type of layout is already really print and screen reader friendly. We remove some unecessary colouring for the print layout, show the skip-to-content link on the speech layout, and hide the display settings (which are useless) for speech as well. */
-
+/***** @media overrides *****/
+/* Nice thing is, this general type of layout is already really print and screen reader friendly. We remove some unnecessary colouring for the print layout, show the skip-to-content link on the speech layout, and hide the display settings (which are useless) for speech as well. */
 @media print {
     /* Obviously you don't need navigation if you're printing. */
     nav {
@@ -287,17 +309,17 @@ aside#headshot #name {
     }
 
     footer#main_footer {
-        border-color: black;
+        display: none;
     }
 }
 
 
-/* Look, let's be clear about something: this is a deprecated feature. You are not supposed to use @media braille. That it is being taught it disgraceful.  Speech, print, and screen -- these are the only non-deprecated media types. */
+/* Look, let's be clear about something: this is a deprecated feature. You are not supposed to use @media braille. It should not be taught. Speech, print, and screen -- these are the only non-deprecated media types. */
 @media speech, braille {
-    #skipToMain {
+    ul#primary_nav_bar > li#skipToMain {
         display: list-item; /* Inline-block not allowed in @braille */
     }
-    #displaySettings {
+    ul#primary_nav_bar > li#displaySettings {
         display: none;
     }
 }

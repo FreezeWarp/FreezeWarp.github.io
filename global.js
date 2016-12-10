@@ -25,8 +25,8 @@ Number.prototype.zeroPad = function(num) {
     return asString;
 };
 
-String.prototype.titleFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
-String.prototype.mainFromHTML = function() { return this.replace(/([\s\S]*)\<main id="main"\>([\s\S]*)\<\/main\>([\s\S]*)/, "$2"); }
+String.prototype.mainFromHTML = function() { return this.replace(/[\s\S]*\<main id="main"\>([\s\S]*)\<\/main\>[\s\S]*/, "$1"); }
+String.prototype.titleFromHTML = function() { return this.replace(/[\s\S]*\<title\>([\s\S]*)\<\/title\>[\s\S]*/, "$1"); }
 
 
 
@@ -48,7 +48,7 @@ function setTheme(themeId) {
  * The old page fades out and slides out to the left (like a book)
  * The new page fades in and slides in from the right (like a book)
  * The body's height adjusts slowly in order to make this transition less jarring. */
-function loadPage(pageUrl, history) { console.log(pageUrl);
+function loadPage(pageUrl, history) {
     var history = typeof history === 'undefined' || history;
 
     /*    if (pageUrl in cachedPages) {
@@ -104,7 +104,7 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                         clearInterval(timer2);
 
                         resizeTarget.style.opacity = 1;
-                        resizeTarget.style.right = "0%";
+                        resizeTarget.style.left = "0%";
                     }
                 }, 10);
 
@@ -121,8 +121,8 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
 
             function xmlReady() {
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                    content = xmlhttp.responseText.mainFromHTML();
-                    pageTitle = xmlhttp.responseText.titleFromHTML();
+                    var content = xmlhttp.responseText.mainFromHTML();
+                    var pageTitle = xmlhttp.responseText.titleFromHTML();
 
                     cachedPages[pageUrl] = {
                         'content' : content,
@@ -137,7 +137,7 @@ function loadPage(pageUrl, history) { console.log(pageUrl);
                 return false;
             }
 
-            if (content) { console.log("content");
+            if (content) {
                 showNew(content, pageTitle);
             }
             else if (!xmlReady()) {

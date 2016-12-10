@@ -10,7 +10,6 @@ input, textarea {
     background-color: #934663;
     color: white;
     border: white 1px solid;
-    width: 100%;
 }
 
 input:invalid {
