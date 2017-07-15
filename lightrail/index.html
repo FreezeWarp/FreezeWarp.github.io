@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+		<script src="scripts/parallax.js/parallax.min.js"></script>
+		<script src="scripts/jquery.imagemapster.min.js"></script>
+		<script src="scripts/howler.min.js"></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+		<link rel="stylesheet" type="text/css" href="http://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
+		<style>
+			img#blueline_image {
+				z-index: 3000;
+			}
+			
+			.stop-icon {
+				background-image: url('circle-icon-white.png');
+				/*background-size: 16px 16px;*/
+				background-size: 20px 20px;
+				position: absolute;
+				/*width: 16px;
+				height: 16px;*/
+				width: 20px;
+				height: 20px;
+				z-index: 4000;
+			}
+			
+			area, map {
+				z-index: 5000;
+			}
+			
+			.stop-icon:hover {
+				background-image: url('circle-icon-red.png');
+			}
+		</style>
+	</head>
+	
+	<body>
+		<map name="blueline" id="blueline_map" style="position: relative;">
+			<area data-key="target-field" shape="rect" coords="78,178,94,194" data-station="Target Field" />
+		</map>
+		
+		<div id="blueline_imagegroup" style="position: relative;">
+			<img src="blueline_map.png" width="664" height="1179" alt="Blueline Map" id="blueline_image" usemap="#blueline">
+		</div>
+		
+		<div id="popups" style="display: none;">
+			<div id="popup-target-field" style="width: 100%;">
+				<img src="images/target-field.jpg" style="width: 100%;" />
+			</div>
+		</div>
+		
+		<script>
+		$('area').each(function(item) {
+			var coords = $(this).attr('coords').split(',');
+			
+			$('#blueline_imagegroup').append('<div class="stop-icon" data-station="' + $(this).attr('data-station') + '" data-key="' + $(this).attr('data-key') + '" style="top: ' + (coords[1] - 2) + 'px; left: ' + (coords[0] - 2) + 'px;" />');
+		});
+		
+		$('.stop-icon').qtip({ // Grab some elements to apply the tooltip to
+			content: {
+				attr: 'data-station'
+			},
+			position: {
+				my: 'bottom center', // at the bottom right of...
+				at: 'top center'
+			}
+		});
+		
+		$('.stop-icon').click(function(data) {
+			(new Howl({
+			    src: ['demo-audio.mp3']
+				//src: [$(this).attr('data-key')]
+			})).play();
+
+			$( "#popup-" + $(this).attr('data-key')).dialog({
+				title: $(this).attr('data-station'),
+			});
+		});
+		</script>
+	</body>
+</html>
