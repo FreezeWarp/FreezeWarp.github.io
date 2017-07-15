@@ -9,24 +9,21 @@
 		<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/cupertino/jquery-ui.min.css" />
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
 		<style>
+			body {
+				font-size: 1.3em;
+			}
 			img#blueline_image {
-				z-index: 3000;
+				z-index: -1;
 			}
 			
 			.stop-icon {
 				background-image: url('circle-icon-white.png');
 				/*background-size: 16px 16px;*/
-				background-size: 20px 20px;
+				background-size: 59px 59px;
 				position: absolute;
-				/*width: 16px;
-				height: 16px;*/
-				width: 20px;
-				height: 20px;
-				z-index: 4000;
-			}
-			
-			area, map {
-				z-index: 5000;
+				width: 59px;
+				height: 59px;
+				z-index: 0;
 			}
 			
 			.stop-icon:hover {
@@ -37,11 +34,19 @@
 	
 	<body>
 		<map name="blueline" id="blueline_map" style="position: relative;">
-			<area data-key="target-field" shape="rect" coords="78,178,94,194" data-station="Target Field" />
+			<area data-key="target-field" shape="rect" coords="264,354,319,409" data-station="Target Field" />
+			<area data-key="warehouse-district" shape="rect" coords="382,440,437,495" data-station="Warehouse District" />
+			<area data-key="nicollet-mall" shape="rect" coords="477,505,522,560" data-station="Nicollet Mall" />
+			<area data-key="government-plaza" shape="rect" coords="560,564,615,619" data-station="Government Plaza" />
+			<area data-key="us-bank-stadium" shape="rect" coords="684,612,739,667" data-station="U.S. Bank Stadium" />
+			<area data-key="franklin-ave" shape="rect" coords="818,789,873,844" data-station="Franklin Avenue" />
+			<area data-key="A" shape="rect" coords="914,683,969,738" data-station="A" />
+			<area data-key="B" shape="rect" coords="1178,648,1233,703" data-station="B" />
+			<area data-key="C" shape="rect" coords="1331,619,1386,674" data-station="C" />
 		</map>
 		
 		<div id="blueline_imagegroup" style="position: relative;">
-			<img src="blueline_map.png" width="664" height="1179" alt="Blueline Map" id="blueline_image" usemap="#blueline">
+			<img src="blueline_map.png" width="1680" height="1204" alt="Blueline Map" id="blueline_image" usemap="#blueline">
 		</div>
 		
 		<div id="popups" style="display: none;">
