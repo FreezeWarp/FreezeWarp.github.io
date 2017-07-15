@@ -1,17 +1,18 @@
 <html>
 	<head>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<script src="scripts/parallax.js/parallax.min.js"></script>
 		<script src="scripts/jquery.imagemapster.min.js"></script>
 		<script src="scripts/howler.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/cupertino/jquery-ui.min.css" />
+		<script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
 		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/qtip2/3.0.3/jquery.qtip.min.css" />
+		<link href="https://cdn.rawgit.com/noelboss/featherlight/1.7.6/release/featherlight.min.css" type="text/css" rel="stylesheet" />
 		<style>
 			body {
 				font-size: 1.3em;
 			}
+			
 			img#blueline_image {
 				z-index: -1;
 			}
@@ -29,6 +30,20 @@
 			.stop-icon:hover {
 				background-image: url('circle-icon-red.png');
 			}
+			
+			.qtip{
+				position:absolute;
+				left:-28000px;
+				top:-28000px;
+				display:none;
+				max-width:500px;
+				font-weight: bold;
+				font-family: sans-serif;
+				font-size:40px;
+				line-height:40px;
+				text-align: center;
+				padding:10px
+			}
 		</style>
 	</head>
 	
@@ -40,9 +55,9 @@
 			<area data-key="government-plaza" shape="rect" coords="560,564,615,619" data-station="Government Plaza" />
 			<area data-key="us-bank-stadium" shape="rect" coords="684,612,739,667" data-station="U.S. Bank Stadium" />
 			<area data-key="franklin-ave" shape="rect" coords="818,789,873,844" data-station="Franklin Avenue" />
-			<area data-key="A" shape="rect" coords="914,683,969,738" data-station="A" />
-			<area data-key="B" shape="rect" coords="1178,648,1233,703" data-station="B" />
-			<area data-key="C" shape="rect" coords="1331,619,1386,674" data-station="C" />
+			<area data-key="west-bank" shape="rect" coords="914,683,969,738" data-station="West Bank" />
+			<area data-key="east-bank" shape="rect" coords="1178,648,1233,703" data-station="East Bank" />
+			<area data-key="stadium-village" shape="rect" coords="1331,619,1386,674" data-station="Stadium Village" />
 		</map>
 		
 		<div id="blueline_imagegroup" style="position: relative;">
@@ -51,7 +66,14 @@
 		
 		<div id="popups" style="display: none;">
 			<div id="popup-target-field" style="width: 100%;">
-				<img src="images/target-field.jpg" style="width: 100%;" />
+				<img src="images/target-field.jpg" style="width: 50%; float: left; padding-right: 20px; padding-bottom: 20px;" />
+				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas in massa erat. Vivamus nisi ex, gravida eget ante nec, volutpat imperdiet nunc. Nunc aliquam tristique diam, vitae commodo augue. Nam rhoncus scelerisque nisl, nec lobortis erat eleifend sit amet. Curabitur rutrum porttitor facilisis. Nulla facilisi. Etiam scelerisque commodo sapien sollicitudin condimentum. Suspendisse nulla orci, auctor non risus vel, pretium lacinia ex. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+
+				<p>Aliquam in purus id orci rhoncus interdum lacinia a justo. Quisque turpis augue, sodales vel velit et, pharetra ultricies lectus. Suspendisse interdum quam quis erat tristique ornare. Etiam id laoreet ipsum. Sed ornare semper consequat. Suspendisse potenti. Cras dignissim massa ligula, ut lacinia ipsum rutrum in. Praesent ac erat risus. Etiam vitae vulputate sapien. Nunc in sapien diam. Nam accumsan commodo euismod.</p>
+
+				<p>In in libero auctor, semper nulla ac, dictum nibh. Fusce consectetur tincidunt purus, a laoreet ipsum ultrices et. Morbi lacinia nulla ut risus gravida accumsan eget sit amet erat. Donec eu sem turpis. Phasellus mollis laoreet nibh eu dictum. Ut odio velit, facilisis bibendum tincidunt non, dapibus non lorem. Mauris nec fringilla metus, sed rutrum mauris. Praesent nulla ante, tristique vitae congue a, aliquam et libero.</p>
+
+				<p>Pellentesque sit amet tortor euismod, pellentesque nisl nec, varius ipsum. Aliquam quis lectus et quam commodo semper sit amet sit amet mi. Nam vehicula neque mauris, eu porta sem elementum quis. Duis dignissim efficitur elit, a mattis lectus maximus sed. Donec malesuada gravida orci ac ornare. Nam in lobortis dui, porta laoreet sem. Fusce ac turpis sed nunc rhoncus laoreet a at ligula. Nunc vel arcu turpis. Suspendisse laoreet iaculis lectus, ac vehicula libero consequat tristique. Etiam faucibus bibendum ligula sit amet placerat. Etiam nec dolor tempus, semper ante vel, placerat turpis. Pellentesque blandit, nisi vitae commodo mattis, ante nulla feugiat risus, sed imperdiet dui dolor id arcu. Vivamus varius quis justo non fermentum.</p>
 			</div>
 		</div>
 		
@@ -69,7 +91,7 @@
 			position: {
 				my: 'bottom center', // at the bottom right of...
 				at: 'top center'
-			}
+			},
 		});
 		
 		$('.stop-icon').click(function(data) {
@@ -78,9 +100,11 @@
 				//src: [$(this).attr('data-key')]
 			})).play();
 
-			$( "#popup-" + $(this).attr('data-key')).dialog({
-				title: $(this).attr('data-station'),
-			});
+			$.featherlight($('#popup-' + $(this).attr('data-key')));
+			
+			//$( "#popup-" + $(this).attr('data-key')).dialog({
+			//	title: $(this).attr('data-station'),
+			//});
 		});
 		</script>
 	</body>
