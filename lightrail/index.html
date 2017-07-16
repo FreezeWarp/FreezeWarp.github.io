@@ -48,6 +48,10 @@
 				background-color: white;
 			}
 			
+			.featherlight-content {
+				font-size: 1.2em;
+			}
+			
 			.featherlight p {
 				margin-top: .5em;
 				margin-bottom: .5em;
@@ -61,11 +65,21 @@
 				text-align: center;
 			}
 			
-			.portrait {
+			figure.portrait {
+				width: 50%;	
 				float: left;
-				width: 50%;
+				display: inline-block;
 				margin-right: 20px;
 				margin-bottom: 20px; 
+			}
+			figure.portrait img {
+				width: 100%;
+			}
+			figure figcaption {
+				font-size: .9em;
+				font-style: italic;
+				margin-top: .5em;
+				line-height: 1.5em;
 			}
 		</style>
 	</head>
@@ -90,6 +104,10 @@
 		<div id="popups" style="display: none;">
 			<div id="popup-target-field">
 				<h1>Alex C.; 23; Minneapolis</h1>
+				<figure class="portrait">
+					<img src="images/alex.jpg" />
+					<figcaption>“There’s times that you hate the snow, but fall and spring are some of the best times of the year.”</figcaption>
+				</figure>
 				
 				<strong><p>Trey Couvillion: What brings you on the light rail today?</p></strong>
 				<p>I’m just coming back from LA for a work trip, just going home.</p>
@@ -124,6 +142,12 @@
 			
 			<div id="popup-nicollet-mall">
 				<h1>Marshall; 31; Gary, IN</h1>
+				
+				<figure class="portrait">
+					<img src="images/marshall.jpg" />
+					<figcaption>“I came to the [X] Games to try and hustle up some money. To eat and stuff.”</figcaption>
+				</figure>
+				
 				<strong><p>T:  What brings you on the light rail today?</p></strong>
 				<p>I came to the games to try and hustle up some money. To eat and stuff.</p>
 
@@ -143,7 +167,10 @@
 			<div id="popup-government-plaza">
 				<h1>Leanne M.; 37; Huntington Beach, CA</h1>
 				
-				<img src="images/calilady.jpg" class="portrait" />
+				<figure class="portrait">
+					<img src="images/leanne.jpg" />
+					<figcaption>“LA doesn’t have this kind of transportation, so I’m very jealous of it.”</figcaption>
+				</figure>
 				
 				<strong><p>T:  What brings you on the light rail today?</p></strong>
 				<p>We’re just heading from X-Games back to our hotel.</p>
@@ -162,7 +189,12 @@
 			</div>
 			
 			<div id="popup-us-bank-stadium">
-				<h1>Roney G.; 21; Indiana</h1>
+				<h1>Ronnie G.; 21; Indiana</h1>
+				
+				<figure class="portrait">
+					<img src="images/ronnie.jpg" />
+					<figcaption>“Towards the end of the night, the culture changes. You got, crazy people, hippie people, drunks, addicts, stuff like that. Some people like to cause fights and all that. So, I would say in the morning, very progressive, business-like people. At night, very slow, but the people change and it’s not for the better.”</figcaption>
+				</figure>
 				
 				<strong><p>T:  What brings you to the station today?</p></strong>
 				<p>The station or the state?</p>
@@ -190,6 +222,12 @@
 				
 				
 				<h1>Amber E.; 31; St. Paul</h1>
+
+				<figure class="portrait">
+					<img src="images/amber.jpg" />
+					<figcaption>“Are you happier?”<br />“Yeah.”<br />“Why are you happier?”<br />“I don’t know. Probably because I’m sober.	</figcaption>
+				</figure>
+				
 				<strong><p>T:  What brings you here to Minneapolis?</p></strong>
 				<p>Ummmmm just better opportunities. I live in St. Paul.</p>
 
@@ -238,7 +276,12 @@
 			
 			<div id="popup-stadium-village">
 				<h1>McKinley & Simone, 19, St. Paul</h1>
-				<img src="images/couple.jpg" class="portrait" />
+				
+				<figure class="portrait">
+					<img src="images/couple2.jpg" />
+					<figcaption>“There are a lot of problems with the Metro Transit system. Like, I think that the fact that they have their own police department is really not okay … [whispers] but we didn’t pay, so it’s fine.”</figcaption>
+				</figure>
+				
 				<strong><p>T: What brings you guys on the light rail today?</p></strong>
 				<p>Mc: We’re going to meet up with some friends at the Nicollet Diner.</p>
 				
@@ -280,7 +323,9 @@
 				<p>Mc: It’s like, low key, a really cool place.</p>				
 				
 				
-				<h1>Theresa, 26 & Alec, 27; Minnesota</h1>
+				<h1>Teresa, 26 & Alec, 27; Minnesota</h1>
+				<figure style="text-align: center; width: 100%;"><figcaption>“ … That’s our stop.”</figcaption></figure>
+				
 				<strong><p>T:  What brings you guys on the light rail today?</p></strong>
 				<p>A: Coming back from the Queen concert in St. Paul.</p>
 
@@ -311,7 +356,12 @@
 				<p>A: Ahh that’s our stop.</p>
 				
 				<h1>Aaron B., 48; St. Paul</h1>
-				<img src="images/dean.jpg" class="portrait" />
+
+				<figure class="portrait">
+					<img src="images/aaron.jpg" />
+					<figcaption>“[The light rail] connects me to my community. You know, I’ve always took public transportation … it’s part of me. I mean I like driving, don’t get me wrong. But this is my community, back and forth. This is the real St. Paul, Minneapolis I think.”</figcaption>
+				</figure>
+				
 				<strong><p>T:  So what brings you on the light rail today?</p></strong>
 				<p>Well, it’s easier for me because I can workout at the Lifetime at Target Center. So for me, you know I’m born and raised in St. Paul. I’ve seen from the conception of the light rail, coming down University. It reminds me when ’94, the Ronald neighborhood in the 50’s and 60’s so it’s like history repeating itself. So, I like taking the light rail. But for me it’s connected to my history, you know?</p>
 
@@ -336,6 +386,12 @@
 			
 			<div id="popup-east-bank">
 				<h1>Bianca B. & Khalid A.</h1>
+				
+				<figure class="portrait">
+					<img src="images/couple.jpg" />
+					<figcaption>“I think I like skateboarding now!”</figcaption>
+				</figure>
+				
 				<strong><p>T:  What brings you guys to Minneapolis today?</p></strong>
 				<p>B: Well, we’re here for the X-Games, but we’re both like locally from here.</p>
 				<p>K: Yeah, X-Games is where I’m at right now but I work in downtown Minneapolis. Like I practically like in Minneapolis, like this is where my life takes place.</p>
